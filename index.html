@@ -32,6 +32,167 @@
             overflow-x: hidden;
         }
         
+        /* Loading Screen - UPDATED */
+        #loadingScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #18181b 0%, #0f172a 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        
+        #loadingScreen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        
+        .loading-container {
+            position: relative;
+            text-align: center;
+        }
+        
+        .loading-text {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #8b5cf6, #06b6d4, #8b5cf6);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2rem;
+            letter-spacing: 2px;
+            animation: gradient 3s ease infinite, pulse 2s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(139, 92, 246, 0.3);
+        }
+        
+        .loading-subtext {
+            color: #94a3b8;
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+        
+        .loading-spinner {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            margin: 0 auto;
+        }
+        
+        .loading-spinner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 4px solid rgba(139, 92, 246, 0.1);
+            border-radius: 50%;
+        }
+        
+        .loading-spinner::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 4px solid transparent;
+            border-top: 4px solid #8b5cf6;
+            border-right: 4px solid #8b5cf6;
+            border-radius: 50%;
+            animation: spin 1.2s linear infinite;
+        }
+        
+        .loading-shine {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(139, 92, 246, 0.8), 
+                rgba(6, 182, 212, 0.8), 
+                transparent
+            );
+            animation: shine 3s ease-in-out infinite;
+        }
+        
+        .loading-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 2rem;
+        }
+        
+        .loading-dots span {
+            width: 10px;
+            height: 10px;
+            background: linear-gradient(45deg, #8b5cf6, #06b6d4);
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+        
+        .loading-dots span:nth-child(1) {
+            animation: dots 1.4s ease-in-out infinite;
+        }
+        .loading-dots span:nth-child(2) {
+            animation: dots 1.4s ease-in-out infinite 0.2s;
+        }
+        .loading-dots span:nth-child(3) {
+            animation: dots 1.4s ease-in-out infinite 0.4s;
+        }
+        
+        @keyframes shine {
+            0% {
+                left: -100%;
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                left: 100%;
+                opacity: 0;
+            }
+        }
+        
+        @keyframes dots {
+            0%, 100% {
+                transform: translateY(0);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-10px);
+                opacity: 1;
+                background: linear-gradient(45deg, #06b6d4, #8b5cf6);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.02);
+            }
+        }
+        
         /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
@@ -63,6 +224,26 @@
             50% { background-position: 100% 50%; }
         }
         
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
         .animate-fadeIn {
             animation: fadeIn 1s ease-out;
         }
@@ -82,6 +263,18 @@
         .animate-gradient {
             animation: gradient 3s ease infinite;
             background-size: 200% 200%;
+        }
+        
+        .animate-bounce {
+            animation: bounce 2s infinite;
+        }
+        
+        .animate-slideIn {
+            animation: slideIn 0.8s ease-out;
+        }
+        
+        .animate-slideUp {
+            animation: slideUp 0.8s ease-out;
         }
         
         /* Custom Scrollbar */
@@ -108,7 +301,8 @@
         }
         
         .filter-btn {
-            backdrop-blur-md;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
@@ -125,6 +319,13 @@
         
         .project-card {
             transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .project-card.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .project-card.hidden {
@@ -146,6 +347,7 @@
         .glass {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
@@ -157,6 +359,7 @@
         .gradient-text {
             background: linear-gradient(90deg, #8b5cf6, #06b6d4);
             -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             background-clip: text;
             color: transparent;
         }
@@ -169,6 +372,7 @@
         .nav-container.scrolled {
             background: rgba(24, 24, 27, 0.95);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(139, 92, 246, 0.2);
         }
         
@@ -200,6 +404,7 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             display: none;
             justify-content: center;
             align-items: center;
@@ -216,6 +421,7 @@
         .auth-modal-content {
             background: linear-gradient(135deg, rgba(24, 24, 27, 0.95), rgba(30, 27, 35, 0.95));
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(139, 92, 246, 0.3);
             border-radius: 20px;
             width: 90%;
@@ -290,10 +496,6 @@
             animation: spin 1s ease-in-out infinite;
         }
         
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
         /* Dashboard Card */
         .dashboard-card {
             transition: all 0.3s ease;
@@ -324,9 +526,244 @@
             border-bottom: 2px solid #8b5cf6;
             color: white;
         }
+        
+        /* Scroll Indicator Styles - FIXED */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 10;
+        }
+        
+        .scroll-indicator .text {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 8px;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+        
+        .scroll-indicator .arrow {
+            width: 24px;
+            height: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .scroll-indicator .arrow::before {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 8px;
+            background: linear-gradient(to bottom, #8b5cf6, #06b6d4);
+            border-radius: 2px;
+            animation: bounce 2s infinite;
+        }
+        
+        @media (max-width: 768px) {
+            .scroll-indicator {
+                bottom: 60px;
+            }
+            
+            .scroll-indicator .text {
+                font-size: 12px;
+            }
+            
+            .scroll-indicator .arrow {
+                width: 20px;
+                height: 35px;
+            }
+        }
+        
+        /* Mouse Scroll Animation */
+        @keyframes scroll-wheel {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(10px);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .scroll-wheel {
+            animation: scroll-wheel 2s infinite;
+        }
+        
+        /* Greeting Styles */
+        .greeting-message {
+            font-size: 1.2rem;
+            color: #06b6d4;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        /* Project Animation */
+        .project-card-animated {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Tech Stack Grid */
+        .tech-stack-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .tech-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .tech-item:hover {
+            transform: translateY(-5px);
+            background: rgba(139, 92, 246, 0.1);
+            border-color: rgba(139, 92, 246, 0.3);
+        }
+        
+        .tech-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+        
+        .tech-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #e2e8f0;
+            text-align: center;
+        }
+        
+        /* Login/Register Buttons */
+        .auth-buttons-container {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .login-btn, .register-btn {
+            padding: 10px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .login-btn {
+            background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+            border: none;
+            color: white;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+        }
+        
+        .register-btn {
+            background: transparent;
+            border: 2px solid #8b5cf6;
+            color: #8b5cf6;
+        }
+        
+        .register-btn:hover {
+            background: rgba(139, 92, 246, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* Social Login Buttons */
+        .social-login-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .social-btn.google {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .social-btn.google:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .social-btn.github {
+            background: rgba(51, 51, 51, 0.8);
+            color: white;
+        }
+        
+        .social-btn.github:hover {
+            background: rgba(51, 51, 51, 1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
     </style>
 </head>
 <body>
+    <!-- Loading Screen - UPDATED -->
+    <div id="loadingScreen">
+        <div class="loading-container">
+            <div class="loading-text">MANDIL DISSANAYAKE</div>
+            <div class="loading-subtext">Full Stack Developer & Designer</div>
+            
+            <div class="loading-spinner"></div>
+            <div class="loading-shine"></div>
+            
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <div class="text-zinc-400 mt-8 text-sm font-mono tracking-wider">
+                INITIALIZING PORTFOLIO ••••
+            </div>
+        </div>
+        
+        <!-- Floating Background Elements -->
+        <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-cyan-500/5 rounded-full blur-3xl"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-purple-500/10 to-cyan-500/10 rounded-full blur-3xl"></div>
+    </div>
+
     <!-- Scroll Progress -->
     <div class="fixed top-0 left-0 right-0 h-1 z-50">
         <div id="progressBar" class="h-full bg-gradient-to-r from-purple-500 to-cyan-500 transition-all duration-300" style="width: 0%"></div>
@@ -375,6 +812,19 @@
                                class="w-full px-4 py-3 glass rounded-lg text-white focus:outline-none focus:border-purple-500 transition-all"
                                placeholder="••••••••">
                     </div>
+                    
+                    <!-- Social Login Buttons -->
+                    <div class="social-login-buttons">
+                        <button type="button" onclick="loginWithGoogle()" class="social-btn google">
+                            <i class="fab fa-google"></i>
+                            Google
+                        </button>
+                        <button type="button" onclick="loginWithGithub()" class="social-btn github">
+                            <i class="fab fa-github"></i>
+                            GitHub
+                        </button>
+                    </div>
+                    
                     <button type="submit" id="loginBtn" 
                             class="w-full bg-gradient-to-r from-purple-600 to-cyan-600 px-6 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 mt-4">
                         <i class="fas fa-sign-in-alt mr-2"></i>
@@ -411,6 +861,15 @@
                                placeholder="••••••••">
                         <p class="text-zinc-500 text-xs mt-1">Minimum 6 characters</p>
                     </div>
+                    
+                    <!-- Social Register Buttons -->
+                    <div class="social-login-buttons">
+                        <button type="button" onclick="loginWithGoogle()" class="social-btn google">
+                            <i class="fab fa-google"></i>
+                            Continue with Google
+                        </button>
+                    </div>
+                    
                     <button type="submit" id="registerBtn" 
                             class="w-full bg-gradient-to-r from-purple-600 to-cyan-600 px-6 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 mt-4">
                         <i class="fas fa-user-plus mr-2"></i>
@@ -437,15 +896,19 @@
                     <a href="#home" class="text-zinc-300 hover:text-white transition-colors font-medium">Home</a>
                     <a href="#about" class="text-zinc-300 hover:text-white transition-colors font-medium">About</a>
                     <a href="#services" class="text-zinc-300 hover:text-white transition-colors font-medium">Services</a>
+                    <a href="#tech-stack" class="text-zinc-300 hover:text-white transition-colors font-medium">Tech Stack</a>
                     <a href="#projects" class="text-zinc-300 hover:text-white transition-colors font-medium">Projects</a>
                     <a href="#testimonials" class="text-zinc-300 hover:text-white transition-colors font-medium">Clients</a>
                     
                     <!-- Auth Buttons (Initially visible) -->
-                    <div id="authButtons" class="flex items-center gap-4">
-                        <button onclick="openAuthModal()" 
-                                class="bg-gradient-to-r from-purple-600 to-cyan-600 px-6 py-2 rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300">
-                            <i class="fas fa-sign-in-alt mr-2"></i>
+                    <div id="authButtons" class="auth-buttons-container">
+                        <button onclick="openAuthModal('login')" class="login-btn">
+                            <i class="fas fa-sign-in-alt"></i>
                             Login
+                        </button>
+                        <button onclick="openAuthModal('register')" class="register-btn">
+                            <i class="fas fa-user-plus"></i>
+                            Register
                         </button>
                     </div>
                     
@@ -463,6 +926,7 @@
                                 <div class="p-4 border-b border-zinc-700">
                                     <div class="font-semibold" id="menuUserName"></div>
                                     <div class="text-sm text-zinc-400" id="menuUserEmail"></div>
+                                    <div class="greeting-message" id="menuGreeting"></div>
                                 </div>
                                 <button onclick="openDashboard()" 
                                         class="w-full text-left px-4 py-3 hover:bg-white/10 transition-colors">
@@ -500,15 +964,21 @@
                     <a href="#home" class="block text-zinc-300 hover:text-white transition-colors font-medium text-lg py-2" onclick="closeMobileMenu()">Home</a>
                     <a href="#about" class="block text-zinc-300 hover:text-white transition-colors font-medium text-lg py-2" onclick="closeMobileMenu()">About</a>
                     <a href="#services" class="block text-zinc-300 hover:text-white transition-colors font-medium text-lg py-2" onclick="closeMobileMenu()">Services</a>
+                    <a href="#tech-stack" class="block text-zinc-300 hover:text-white transition-colors font-medium text-lg py-2" onclick="closeMobileMenu()">Tech Stack</a>
                     <a href="#projects" class="block text-zinc-300 hover:text-white transition-colors font-medium text-lg py-2" onclick="closeMobileMenu()">Projects</a>
                     <a href="#testimonials" class="block text-zinc-300 hover:text-white transition-colors font-medium text-lg py-2" onclick="closeMobileMenu()">Clients</a>
                     
                     <!-- Mobile Auth Buttons -->
                     <div id="mobileAuthButtons" class="space-y-4">
-                        <button onclick="openAuthModal(); closeMobileMenu()" 
-                                class="w-full bg-gradient-to-r from-purple-600 to-cyan-600 px-6 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300">
+                        <button onclick="openAuthModal('login'); closeMobileMenu()" 
+                                class="w-full login-btn">
                             <i class="fas fa-sign-in-alt mr-2"></i>
-                            Login / Register
+                            Login
+                        </button>
+                        <button onclick="openAuthModal('register'); closeMobileMenu()" 
+                                class="w-full register-btn">
+                            <i class="fas fa-user-plus mr-2"></i>
+                            Register
                         </button>
                     </div>
                     
@@ -519,6 +989,7 @@
                             <div>
                                 <div class="font-semibold" id="mobileUserName"></div>
                                 <div class="text-sm text-zinc-400" id="mobileUserEmail"></div>
+                                <div class="greeting-message" id="mobileGreeting"></div>
                             </div>
                         </div>
                         <button onclick="openDashboard(); closeMobileMenu()" 
@@ -545,11 +1016,591 @@
         </span>
     </button>
 
+    <!-- Main Content -->
+    <div id="mainContent" style="display: none;">
+        <!-- Hero Section -->
+        <section id="home" class="relative min-h-screen flex items-center justify-center px-6 overflow-hidden pt-20">
+            <!-- Background Effects -->
+            <div class="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-zinc-900 to-cyan-900/20"></div>
+            <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(circle at 2px 2px, rgba(139, 92, 246, 0.15) 1px, transparent 0); background-size: 50px 50px;"></div>
+            
+            <!-- Floating Elements -->
+            <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl"></div>
+            
+            <div class="relative z-10 max-w-5xl mx-auto text-center space-y-8 animate-fadeIn">
+                <div class="inline-block mb-4">
+                    <span class="px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-cyan-500/20 border border-purple-500/30 text-sm font-mono">
+                        <i class="fas fa-sparkle mr-2"></i>Available for projects
+                    </span>
+                </div>
+                
+                <h1 class="text-4xl md:text-7xl font-bold leading-tight">
+                   I'm Mandil Dissanayake
+                    <br />
+                    <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent animate-gradient" id="typing-text">
+                        Full Stack Developer & Designer
+                    </span>
+                </h1>
+                
+                <p class="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto">
+                    Transforming ideas into powerful digital solutions with 9+ years of experience in web development, 
+                    design, and digital strategy.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+                    <button onclick="scrollToProjects()" class="group bg-gradient-to-r from-purple-600 to-cyan-600 px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 flex items-center gap-2">
+                        View My Projects
+                        <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                    <button onclick="scrollToContact()" class="glass px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/20 transition-all duration-300">
+                        Contact Me
+                    </button>
+                </div>
+                
+                <!-- Stats -->
+                <div class="grid grid-cols-3 gap-6 pt-12 max-w-xl mx-auto">
+                    <div class="text-center">
+                        <div class="text-3xl md:text-4xl font-bold gradient-text">120+</div>
+                        <div class="text-zinc-400 text-sm">Projects Delivered</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl md:text-4xl font-bold gradient-text">9+</div>
+                        <div class="text-zinc-400 text-sm">Years Experience</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl md:text-4xl font-bold gradient-text">100%</div>
+                        <div class="text-zinc-400 text-sm">Client Satisfaction</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Scroll Indicator - FIXED VERSION -->
+            <div class="scroll-indicator animate-float">
+                <div class="text">SCROLL TO EXPLORE</div>
+                <div class="arrow scroll-wheel"></div>
+            </div>
+        </section>
+
+        <!-- Tech Stack Section -->
+        <section id="tech-stack" class="py-20 px-6 border-y border-zinc-800 bg-zinc-900/50 backdrop-blur-sm">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-12 space-y-4">
+                    <h2 class="text-4xl md:text-5xl font-bold">My Tech Stack</h2>
+                    <p class="text-zinc-400 text-lg">Technologies and tools I use to build amazing digital experiences</p>
+                </div>
+                
+                <div class="tech-stack-grid">
+                    <!-- Frontend Technologies -->
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fab fa-html5 text-orange-500"></i>
+                        </div>
+                        <div class="tech-name">HTML5</div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fab fa-css3-alt text-blue-500"></i>
+                        </div>
+                        <div class="tech-name">CSS3</div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fab fa-js-square text-yellow-400"></i>
+                        </div>
+                        <div class="tech-name">JavaScript</div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fab fa-react text-cyan-400"></i>
+                        </div>
+                        <div class="tech-name">React</div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fab fa-vuejs text-green-500"></i>
+                        </div>
+                        <div class="tech-name">Vue.js</div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fab fa-angular text-red-500"></i>
+                        </div>
+                        <div class="tech-name">Angular</div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fab fa-bootstrap text-purple-500"></i>
+                        </div>
+                        <div class="tech-name">Bootstrap</div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fab fa-tailwind text-cyan-300"></i>
+                        </div>
+                        <div class="tech-name">Tailwind CSS</div>
+                    </div>
+                    
+                    <!-- Backend Technologies -->
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fab fa-node-js text-green-600"></i>
+                        </div>
+                        <div class="tech-name">Node.js</div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fab fa-php text-purple-400"></i>
+                        </div>
+                        <div class="tech-name">PHP</div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fab fa-python text-blue-400"></i>
+                        </div>
+                        <div class="tech-name">Python</div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fas fa-database text-yellow-300"></i>
+                        </div>
+                        <div class="tech-name">MySQL</div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fas fa-database text-green-400"></i>
+                        </div>
+                        <div class="tech-name">MongoDB</div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fas fa-fire text-orange-500"></i>
+                        </div>
+                        <div class="tech-name">Firebase</div>
+                    </div>
+                    
+                    <!-- Tools & Platforms -->
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fab fa-wordpress text-blue-600"></i>
+                        </div>
+                        <div class="tech-name">WordPress</div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fab fa-figma text-pink-500"></i>
+                        </div>
+                        <div class="tech-name">Figma</div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fab fa-adobe text-red-400"></i>
+                        </div>
+                        <div class="tech-name">Photoshop</div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fab fa-adobe text-orange-400"></i>
+                        </div>
+                        <div class="tech-name">Illustrator</div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fab fa-git-alt text-orange-600"></i>
+                        </div>
+                        <div class="tech-name">Git</div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fab fa-github text-white"></i>
+                        </div>
+                        <div class="tech-name">GitHub</div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fas fa-server text-green-300"></i>
+                        </div>
+                        <div class="tech-name">AWS</div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fas fa-cloud text-blue-300"></i>
+                        </div>
+                        <div class="tech-name">Cloudflare</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 px-6 max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <h2 class="text-4xl md:text-5xl font-bold">About Me</h2>
+                    <p class="text-zinc-400 text-lg leading-relaxed">
+                        Hi, I'm <span class="text-cyan-300 font-semibold">Mandil Dissanayake</span>, a passionate Full Stack Developer and Designer with 9+ years of experience in creating exceptional digital experiences. I specialize in bridging the gap between stunning design and robust functionality.
+                    </p>
+                    <p class="text-zinc-400 text-lg leading-relaxed">
+                        Over the years, I've successfully delivered 120+ projects for clients across various industries, from small businesses to large enterprises. My expertise spans web development, graphic design, social media management, and comprehensive digital solutions.
+                    </p>
+                    <div class="flex gap-4 pt-4">
+                        <button onclick="downloadResume()" class="bg-gradient-to-r from-purple-600 to-cyan-600 px-6 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 flex items-center gap-2">
+                            <i class="fas fa-download"></i>
+                            Download CV
+                        </button>
+                        <button onclick="scrollToContact()" class="glass px-6 py-3 rounded-lg font-semibold hover:bg-white/20 transition-all duration-300">
+                            Contact Me
+                        </button>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-cyan-500/20 rounded-3xl blur-3xl"></div>
+                    <div class="relative glass rounded-3xl p-8 space-y-6">
+                        <div class="flex items-start gap-4 p-4 bg-gradient-to-r from-purple-500/10 to-transparent rounded-xl border-l-4 border-purple-500">
+                            <i class="fas fa-laptop-code text-purple-400 text-2xl mt-1"></i>
+                            <div>
+                                <h3 class="font-bold text-lg mb-1">Web Development</h3>
+                                <p class="text-zinc-400 text-sm">Custom websites, e-commerce, web applications</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 bg-gradient-to-r from-cyan-500/10 to-transparent rounded-xl border-l-4 border-cyan-500">
+                            <i class="fas fa-palette text-cyan-400 text-2xl mt-1"></i>
+                            <div>
+                                <h3 class="font-bold text-lg mb-1">Graphic Design</h3>
+                                <p class="text-zinc-400 text-sm">Logos, branding, marketing materials</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 bg-gradient-to-r from-purple-500/10 to-transparent rounded-xl border-l-4 border-purple-500">
+                            <i class="fas fa-chart-line text-purple-400 text-2xl mt-1"></i>
+                            <div>
+                                <h3 class="font-bold text-lg mb-1">Digital Strategy</h3>
+                                <p class="text-zinc-400 text-sm">Complete digital transformation solutions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-20 px-6 bg-gradient-to-b from-zinc-900 to-zinc-950">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16 space-y-4">
+                    <h2 class="text-4xl md:text-5xl font-bold">My Services</h2>
+                    <p class="text-zinc-400 text-lg">Comprehensive digital solutions for your business growth</p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="glass rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-300 hover:scale-105 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-code text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Web Development</h3>
+                        <p class="text-zinc-400 leading-relaxed">Custom website development, e-commerce solutions, web applications with modern frameworks and technologies.</p>
+                        <div class="mt-4">
+                            <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">Responsive Design</span>
+                            <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">E-commerce</span>
+                            <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">Web Apps</span>
+                        </div>
+                    </div>
+                    
+                    <div class="glass rounded-2xl p-8 hover:border-cyan-500/50 transition-all duration-300 hover:scale-105 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-paint-brush text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Graphic & Web Design</h3>
+                        <p class="text-zinc-400 leading-relaxed">Creative designs for logos, branding, UI/UX, marketing materials and social media graphics.</p>
+                        <div class="mt-4">
+                            <span class="text-xs font-mono px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded-full border border-cyan-500/30">Logo Design</span>
+                            <span class="text-xs font-mono px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded-full border border-cyan-500/30">UI/UX</span>
+                            <span class="text-xs font-mono px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded-full border border-cyan-500/30">Branding</span>
+                        </div>
+                    </div>
+                    
+                    <div class="glass rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-300 hover:scale-105 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-cyan-500 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-users text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Social Media Management</h3>
+                        <p class="text-zinc-400 leading-relaxed">Complete social media strategy, content creation, scheduling, and analytics for business growth.</p>
+                        <div class="mt-4">
+                            <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">Content Strategy</span>
+                            <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">Analytics</span>
+                            <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">Campaigns</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8 mt-8">
+                    <div class="glass rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-300 hover:scale-105 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-tools text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Website Maintenance</h3>
+                        <p class="text-zinc-400 leading-relaxed">Regular updates, security patches, performance optimization, and technical support for existing websites.</p>
+                        <div class="mt-4">
+                            <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">Security</span>
+                            <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">Updates</span>
+                            <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">Support</span>
+                        </div>
+                    </div>
+                    
+                    <div class="glass rounded-2xl p-8 hover:border-cyan-500/50 transition-all duration-300 hover:scale-105 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-sync-alt text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Website Rebuilding</h3>
+                        <p class="text-zinc-400 leading-relaxed">Modernizing outdated websites with new designs, improved functionality, and better performance.</p>
+                        <div class="mt-4">
+                            <span class="text-xs font-mono px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded-full border border-cyan-500/30">Redesign</span>
+                            <span class="text-xs font-mono px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded-full border border-cyan-500/30">Migration</span>
+                            <span class="text-xs font-mono px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded-full border border-cyan-500/30">Modernization</span>
+                        </div>
+                    </div>
+                    
+                    <div class="glass rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-300 hover:scale-105 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-cyan-500 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-database text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Data Entry & Management</h3>
+                        <p class="text-zinc-400 leading-relaxed">Accurate data entry, database management, and data processing services for various business needs.</p>
+                        <div class="mt-4">
+                            <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">Database</span>
+                            <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">Processing</span>
+                            <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">Management</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Showcase -->
+        <section id="projects" class="py-20 px-6 max-w-7xl mx-auto">
+            <div class="text-center mb-16 space-y-4">
+                <h2 class="text-4xl md:text-5xl font-bold">Featured Case Studies</h2>
+                <p class="text-zinc-400 text-lg">Real-world projects with complete solutions</p>
+                
+                <!-- Filter Buttons -->
+                <div class="flex flex-wrap justify-center gap-3 pt-6">
+                    <button onclick="filterProjects('all')" class="filter-btn active px-6 py-2 rounded-full font-semibold transition-all duration-300">All</button>
+                    <button onclick="filterProjects('business')" class="filter-btn px-6 py-2 rounded-full font-semibold transition-all duration-300">Business</button>
+                    <button onclick="filterProjects('ecommerce')" class="filter-btn px-6 py-2 rounded-full font-semibold transition-all duration-300">E-commerce</button>
+                    <button onclick="filterProjects('services')" class="filter-btn px-6 py-2 rounded-full font-semibold transition-all duration-300">Services</button>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="projectsContainer">
+                <!-- Projects will be loaded here -->
+            </div>
+            
+            <!-- Load More Button -->
+            <div class="text-center mt-12">
+                <button onclick="loadMoreProjects()" class="glass px-8 py-3 rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 group">
+                    View More Projects
+                    <i class="fas fa-chevron-down ml-2 group-hover:translate-y-1 transition-transform"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Client Testimonials -->
+        <section id="testimonials" class="py-20 px-6 bg-gradient-to-b from-zinc-950 to-zinc-900">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16 space-y-4">
+                    <h2 class="text-4xl md:text-5xl font-bold">Client Success Stories</h2>
+                    <p class="text-zinc-400 text-lg">What my clients say about working with me</p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="glass rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-300">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-cyan-500 rounded-full flex items-center justify-center">
+                                <i class="fas fa-cut"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold">Sarah Johnson</h3>
+                                <p class="text-zinc-400 text-sm">Owner, Glamour Saloon</p>
+                            </div>
+                        </div>
+                        <p class="text-zinc-300 italic">"Mandil transformed our salon's online presence. The booking system increased our appointments by 40%. His attention to detail and technical expertise exceeded our expectations."</p>
+                    </div>
+                    
+                    <div class="glass rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-300">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 bg-gradient-to-br from-cyan-500 to-purple-500 rounded-full flex items-center justify-center">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold">Michael Chen</h3>
+                                <p class="text-zinc-400 text-sm">Director, Urban Builders Ltd.</p>
+                            </div>
+                        </div>
+                        <p class="text-zinc-300 italic">"The construction portal Mandil built for us streamlined our project management. Client communication improved dramatically, and we saw a 35% increase in inquiries."</p>
+                    </div>
+                    
+                    <div class="glass rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-300">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                                <i class="fas fa-car"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold">David Rodriguez</h3>
+                                <p class="text-zinc-400 text-sm">Manager, QuickCar Rentals</p>
+                            </div>
+                        </div>
+                        <p class="text-zinc-300 italic">"Our car rental business doubled its online bookings after Mandil developed our system. The payment integration and admin dashboard made operations so much easier."</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8 mt-8">
+                    <div class="glass rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-300">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-cyan-500 rounded-full flex items-center justify-center">
+                                <i class="fas fa-paw"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold">Emma Wilson</h3>
+                                <p class="text-zinc-400 text-sm">Owner, Happy Paws Pet Shop</p>
+                            </div>
+                        </div>
+                        <p class="text-zinc-300 italic">"Our e-commerce website by Mandil has been a game-changer. Sales increased by 60% in the first month. The inventory management system saved us hours every day."</p>
+                    </div>
+                    
+                    <div class="glass rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-300">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold">Robert Kim</h3>
+                                <p class="text-zinc-400 text-sm">CEO, Prime Properties</p>
+                            </div>
+                        </div>
+                        <p class="text-zinc-300 italic">"Mandil's real estate portal helped us manage 200+ properties efficiently. The lead tracking system alone has increased our conversion rate by 45%."</p>
+                    </div>
+                    
+                    <div class="glass rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-300">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-red-500 rounded-full flex items-center justify-center">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold">Lisa Anderson</h3>
+                                <p class="text-zinc-400 text-sm">Marketing Director, TechGrowth Inc.</p>
+                            </div>
+                        </div>
+                        <p class="text-zinc-300 italic">"The custom CRM system Mandil developed transformed our sales process. Email integration and analytics gave us insights we never had before. Highly recommended!"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 px-6 max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="space-y-8">
+                    <h2 class="text-4xl md:text-5xl font-bold">Let's Work Together</h2>
+                    <p class="text-zinc-400 text-lg leading-relaxed">
+                        Have a project in mind? Let's discuss how we can create something amazing together. I'm currently available for freelance work and full-time opportunities.
+                    </p>
+                    
+                    <!-- Success Message -->
+                    <div id="successMessage" class="success-message bg-green-500/20 border border-green-500/30 rounded-xl p-6">
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-check-circle text-green-400 text-2xl"></i>
+                            <div>
+                                <h3 class="font-bold text-green-300">Message Sent Successfully!</h3>
+                                <p class="text-green-200 text-sm">Thank you for your message. I'll get back to you within 24 hours.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <a href="mailto:mashsolutions26@gmail.com" class="flex items-center gap-4 group">
+                            <div class="w-14 h-14 bg-gradient-to-r from-purple-500/20 to-cyan-500/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <i class="fas fa-envelope text-purple-400 text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">Email</h3>
+                                <p class="text-zinc-400 group-hover:text-cyan-300 transition-colors">mashsolutions26@gmail.com</p>
+                            </div>
+                        </a>
+                        
+                        <a href="https://www.linkedin.com/in/mandil-dissanayake-47bb953a1/" target="_blank" class="flex items-center gap-4 group">
+                            <div class="w-14 h-14 bg-gradient-to-r from-purple-500/20 to-cyan-500/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <i class="fab fa-linkedin-in text-purple-400 text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">LinkedIn</h3>
+                                <p class="text-zinc-400 group-hover:text-cyan-300 transition-colors">https://www.linkedin.com/in/mandil-dissanayake-47bb953a1/</p>
+                            </div>
+                        </a>
+                        
+                        <a href="https://github.com/mandil11" target="_blank" class="flex items-center gap-4 group">
+                            <div class="w-14 h-14 bg-gradient-to-r from-purple-500/20 to-cyan-500/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <i class="fab fa-github text-purple-400 text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">GitHub</h3>
+                                <p class="text-zinc-400 group-hover:text-cyan-300 transition-colors">https://github.com/mandil11</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <form id="contactForm" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-zinc-300 mb-2">Name *</label>
+                            <input type="text" id="name" required class="w-full px-4 py-3 glass rounded-lg text-white focus:outline-none focus:border-purple-500 transition-all" placeholder="Your Name">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-zinc-300 mb-2">Email *</label>
+                            <input type="email" id="email" required class="w-full px-4 py-3 glass rounded-lg text-white focus:outline-none focus:border-purple-500 transition-all" placeholder="your@email.com">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="subject" class="block text-sm font-medium text-zinc-300 mb-2">Subject *</label>
+                        <input type="text" id="subject" required class="w-full px-4 py-3 glass rounded-lg text-white focus:outline-none focus:border-purple-500 transition-all" placeholder="Project Inquiry">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-zinc-300 mb-2">Message *</label>
+                        <textarea id="message" rows="4" required class="w-full px-4 py-3 glass rounded-lg text-white focus:outline-none focus:border-purple-500 transition-all resize-none" placeholder="Tell me about your project..."></textarea>
+                    </div>
+                    <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-purple-600 to-cyan-600 px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 flex items-center justify-center gap-2">
+                        <i class="fas fa-paper-plane"></i>
+                        Send Message
+                    </button>
+                    <p class="text-zinc-500 text-sm text-center">* Required fields</p>
+                </form>
+            </div>
+        </section>
+    </div>
+
     <!-- Dashboard Section -->
     <section id="dashboard" class="dashboard-section py-20 px-6 max-w-6xl mx-auto">
         <div class="text-center mb-12">
             <h1 class="text-4xl md:text-5xl font-bold mb-4">Dashboard</h1>
             <p class="text-zinc-400">Welcome back, <span id="dashboardUserName" class="text-cyan-300 font-semibold"></span></p>
+            <div class="greeting-message" id="dashboardGreeting"></div>
         </div>
         
         <div class="grid md:grid-cols-3 gap-8 mb-12">
@@ -590,6 +1641,7 @@
                     <div class="text-center">
                         <h3 class="text-xl font-bold" id="dashboardFullName"></h3>
                         <p class="text-zinc-400" id="dashboardEmail"></p>
+                        <div class="greeting-message" id="userGreeting"></div>
                     </div>
                 </div>
                 <div class="space-y-4">
@@ -640,630 +1692,6 @@
         </div>
     </section>
 
-    <!-- Hero Section -->
-    <section id="home" class="relative min-h-screen flex items-center justify-center px-6 overflow-hidden pt-20">
-        <!-- Background Effects -->
-        <div class="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-zinc-900 to-cyan-900/20"></div>
-        <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(circle at 2px 2px, rgba(139, 92, 246, 0.15) 1px, transparent 0); background-size: 50px 50px;"></div>
-        
-        <!-- Floating Elements -->
-        <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl"></div>
-        
-        <div class="relative z-10 max-w-5xl mx-auto text-center space-y-8 animate-fadeIn">
-            <div class="inline-block mb-4">
-                <span class="px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-cyan-500/20 border border-purple-500/30 text-sm font-mono">
-                    <i class="fas fa-sparkle mr-2"></i>Available for projects
-                </span>
-            </div>
-            
-            <h1 class="text-4xl md:text-7xl font-bold leading-tight">
-               I'm Mandil Dissanayake
-                <br />
-                <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent animate-gradient" id="typing-text">
-                    Full Stack Developer & Designer
-                </span>
-            </h1>
-            
-            <p class="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto">
-                Transforming ideas into powerful digital solutions with 9+ years of experience in web development, 
-                design, and digital strategy.
-            </p>
-            
-            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-                <button onclick="scrollToProjects()" class="group bg-gradient-to-r from-purple-600 to-cyan-600 px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 flex items-center gap-2">
-                    View My Projects
-                    <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-                </button>
-                <button onclick="openAuthModal()" class="glass px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/20 transition-all duration-300">
-                    Login to Contact Me
-                </button>
-            </div>
-            
-            <!-- Stats -->
-            <div class="grid grid-cols-3 gap-6 pt-12 max-w-xl mx-auto">
-                <div class="text-center">
-                    <div class="text-3xl md:text-4xl font-bold gradient-text">120+</div>
-                    <div class="text-zinc-400 text-sm">Projects Delivered</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-3xl md:text-4xl font-bold gradient-text">9+</div>
-                    <div class="text-zinc-400 text-sm">Years Experience</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-3xl md:text-4xl font-bold gradient-text">100%</div>
-                    <div class="text-zinc-400 text-sm">Client Satisfaction</div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Scroll Indicator -->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-float">
-            <div class="text-zinc-500 text-sm mb-2">Scroll to explore</div>
-            <div class="w-6 h-10 border-2 border-zinc-600 rounded-full flex justify-center">
-                <div class="w-1 h-3 bg-gradient-to-b from-purple-400 to-cyan-400 rounded-full mt-2 animate-pulse"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Tech Stack Marquee -->
-    <section class="py-16 border-y border-zinc-800 overflow-hidden bg-zinc-900/50 backdrop-blur-sm">
-        <h2 class="text-center text-zinc-500 text-sm font-mono mb-8 tracking-wider">
-            TECH STACK & TOOLS
-        </h2>
-        <div class="relative">
-            <div class="flex animate-scroll">
-                <div class="flex">
-                    <div class="mx-8 px-6 py-3 glass rounded-lg whitespace-nowrap text-purple-300 font-semibold hover:scale-105 transition-transform duration-300">HTML5</div>
-                    <div class="mx-8 px-6 py-3 glass rounded-lg whitespace-nowrap text-purple-300 font-semibold hover:scale-105 transition-transform duration-300">CSS3</div>
-                    <div class="mx-8 px-6 py-3 glass rounded-lg whitespace-nowrap text-purple-300 font-semibold hover:scale-105 transition-transform duration-300">JavaScript</div>
-                    <div class="mx-8 px-6 py-3 glass rounded-lg whitespace-nowrap text-purple-300 font-semibold hover:scale-105 transition-transform duration-300">React</div>
-                    <div class="mx-8 px-6 py-3 glass rounded-lg whitespace-nowrap text-purple-300 font-semibold hover:scale-105 transition-transform duration-300">Node.js</div>
-                    <div class="mx-8 px-6 py-3 glass rounded-lg whitespace-nowrap text-purple-300 font-semibold hover:scale-105 transition-transform duration-300">PHP</div>
-                    <div class="mx-8 px-6 py-3 glass rounded-lg whitespace-nowrap text-purple-300 font-semibold hover:scale-105 transition-transform duration-300">MySQL</div>
-                    <div class="mx-8 px-6 py-3 glass rounded-lg whitespace-nowrap text-purple-300 font-semibold hover:scale-105 transition-transform duration-300">MongoDB</div>
-                    <div class="mx-8 px-6 py-3 glass rounded-lg whitespace-nowrap text-purple-300 font-semibold hover:scale-105 transition-transform duration-300">Firebase</div>
-                    <div class="mx-8 px-6 py-3 glass rounded-lg whitespace-nowrap text-purple-300 font-semibold hover:scale-105 transition-transform duration-300">WordPress</div>
-                    <div class="mx-8 px-6 py-3 glass rounded-lg whitespace-nowrap text-purple-300 font-semibold hover:scale-105 transition-transform duration-300">Photoshop</div>
-                    <div class="mx-8 px-6 py-3 glass rounded-lg whitespace-nowrap text-purple-300 font-semibold hover:scale-105 transition-transform duration-300">Illustrator</div>
-                    <div class="mx-8 px-6 py-3 glass rounded-lg whitespace-nowrap text-purple-300 font-semibold hover:scale-105 transition-transform duration-300">Figma</div>
-                    <div class="mx-8 px-6 py-3 glass rounded-lg whitespace-nowrap text-purple-300 font-semibold hover:scale-105 transition-transform duration-300">Git</div>
-                </div>
-                <div class="flex">
-                    <div class="mx-8 px-6 py-3 glass rounded-lg whitespace-nowrap text-purple-300 font-semibold hover:scale-105 transition-transform duration-300">HTML5</div>
-                    <div class="mx-8 px-6 py-3 glass rounded-lg whitespace-nowrap text-purple-300 font-semibold hover:scale-105 transition-transform duration-300">CSS3</div>
-                    <div class="mx-8 px-6 py-3 glass rounded-lg whitespace-nowrap text-purple-300 font-semibold hover:scale-105 transition-transform duration-300">JavaScript</div>
-                    <div class="mx-8 px-6 py-3 glass rounded-lg whitespace-nowrap text-purple-300 font-semibold hover:scale-105 transition-transform duration-300">React</div>
-                    <div class="mx-8 px-6 py-3 glass rounded-lg whitespace-nowrap text-purple-300 font-semibold hover:scale-105 transition-transform duration-300">Node.js</div>
-                    <div class="mx-8 px-6 py-3 glass rounded-lg whitespace-nowrap text-purple-300 font-semibold hover:scale-105 transition-transform duration-300">PHP</div>
-                    <div class="mx-8 px-6 py-3 glass rounded-lg whitespace-nowrap text-purple-300 font-semibold hover:scale-105 transition-transform duration-300">MySQL</div>
-                    <div class="mx-8 px-6 py-3 glass rounded-lg whitespace-nowrap text-purple-300 font-semibold hover:scale-105 transition-transform duration-300">MongoDB</div>
-                    <div class="mx-8 px-6 py-3 glass rounded-lg whitespace-nowrap text-purple-300 font-semibold hover:scale-105 transition-transform duration-300">Firebase</div>
-                    <div class="mx-8 px-6 py-3 glass rounded-lg whitespace-nowrap text-purple-300 font-semibold hover:scale-105 transition-transform duration-300">WordPress</div>
-                    <div class="mx-8 px-6 py-3 glass rounded-lg whitespace-nowrap text-purple-300 font-semibold hover:scale-105 transition-transform duration-300">Photoshop</div>
-                    <div class="mx-8 px-6 py-3 glass rounded-lg whitespace-nowrap text-purple-300 font-semibold hover:scale-105 transition-transform duration-300">Illustrator</div>
-                    <div class="mx-8 px-6 py-3 glass rounded-lg whitespace-nowrap text-purple-300 font-semibold hover:scale-105 transition-transform duration-300">Figma</div>
-                    <div class="mx-8 px-6 py-3 glass rounded-lg whitespace-nowrap text-purple-300 font-semibold hover:scale-105 transition-transform duration-300">Git</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-20 px-6 max-w-6xl mx-auto">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-            <div class="space-y-6">
-                <h2 class="text-4xl md:text-5xl font-bold">About Me</h2>
-                <p class="text-zinc-400 text-lg leading-relaxed">
-                    Hi, I'm <span class="text-cyan-300 font-semibold">Mandil Dissanayake</span>, a passionate Full Stack Developer and Designer with 9+ years of experience in creating exceptional digital experiences. I specialize in bridging the gap between stunning design and robust functionality.
-                </p>
-                <p class="text-zinc-400 text-lg leading-relaxed">
-                    Over the years, I've successfully delivered 120+ projects for clients across various industries, from small businesses to large enterprises. My expertise spans web development, graphic design, social media management, and comprehensive digital solutions.
-                </p>
-                <div class="flex gap-4 pt-4">
-                    <button onclick="downloadResume()" class="bg-gradient-to-r from-purple-600 to-cyan-600 px-6 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 flex items-center gap-2">
-                        <i class="fas fa-download"></i>
-                        Download CV
-                    </button>
-                    <button onclick="openAuthModal()" class="glass px-6 py-3 rounded-lg font-semibold hover:bg-white/20 transition-all duration-300">
-                        Contact Me
-                    </button>
-                </div>
-            </div>
-            <div class="relative">
-                <div class="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-cyan-500/20 rounded-3xl blur-3xl"></div>
-                <div class="relative glass rounded-3xl p-8 space-y-6">
-                    <div class="flex items-start gap-4 p-4 bg-gradient-to-r from-purple-500/10 to-transparent rounded-xl border-l-4 border-purple-500">
-                        <i class="fas fa-laptop-code text-purple-400 text-2xl mt-1"></i>
-                        <div>
-                            <h3 class="font-bold text-lg mb-1">Web Development</h3>
-                            <p class="text-zinc-400 text-sm">Custom websites, e-commerce, web applications</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4 p-4 bg-gradient-to-r from-cyan-500/10 to-transparent rounded-xl border-l-4 border-cyan-500">
-                        <i class="fas fa-palette text-cyan-400 text-2xl mt-1"></i>
-                        <div>
-                            <h3 class="font-bold text-lg mb-1">Graphic Design</h3>
-                            <p class="text-zinc-400 text-sm">Logos, branding, marketing materials</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4 p-4 bg-gradient-to-r from-purple-500/10 to-transparent rounded-xl border-l-4 border-purple-500">
-                        <i class="fas fa-chart-line text-purple-400 text-2xl mt-1"></i>
-                        <div>
-                            <h3 class="font-bold text-lg mb-1">Digital Strategy</h3>
-                            <p class="text-zinc-400 text-sm">Complete digital transformation solutions</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="py-20 px-6 bg-gradient-to-b from-zinc-900 to-zinc-950">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16 space-y-4">
-                <h2 class="text-4xl md:text-5xl font-bold">My Services</h2>
-                <p class="text-zinc-400 text-lg">Comprehensive digital solutions for your business growth</p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="glass rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-300 hover:scale-105 group">
-                    <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-code text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Web Development</h3>
-                    <p class="text-zinc-400 leading-relaxed">Custom website development, e-commerce solutions, web applications with modern frameworks and technologies.</p>
-                    <div class="mt-4">
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">Responsive Design</span>
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">E-commerce</span>
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">Web Apps</span>
-                    </div>
-                </div>
-                
-                <div class="glass rounded-2xl p-8 hover:border-cyan-500/50 transition-all duration-300 hover:scale-105 group">
-                    <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-paint-brush text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Graphic & Web Design</h3>
-                    <p class="text-zinc-400 leading-relaxed">Creative designs for logos, branding, UI/UX, marketing materials and social media graphics.</p>
-                    <div class="mt-4">
-                        <span class="text-xs font-mono px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded-full border border-cyan-500/30">Logo Design</span>
-                        <span class="text-xs font-mono px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded-full border border-cyan-500/30">UI/UX</span>
-                        <span class="text-xs font-mono px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded-full border border-cyan-500/30">Branding</span>
-                    </div>
-                </div>
-                
-                <div class="glass rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-300 hover:scale-105 group">
-                    <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-cyan-500 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-users text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Social Media Management</h3>
-                    <p class="text-zinc-400 leading-relaxed">Complete social media strategy, content creation, scheduling, and analytics for business growth.</p>
-                    <div class="mt-4">
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">Content Strategy</span>
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">Analytics</span>
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">Campaigns</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8 mt-8">
-                <div class="glass rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-300 hover:scale-105 group">
-                    <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-tools text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Website Maintenance</h3>
-                    <p class="text-zinc-400 leading-relaxed">Regular updates, security patches, performance optimization, and technical support for existing websites.</p>
-                    <div class="mt-4">
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">Security</span>
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">Updates</span>
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">Support</span>
-                    </div>
-                </div>
-                
-                <div class="glass rounded-2xl p-8 hover:border-cyan-500/50 transition-all duration-300 hover:scale-105 group">
-                    <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-sync-alt text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Website Rebuilding</h3>
-                    <p class="text-zinc-400 leading-relaxed">Modernizing outdated websites with new designs, improved functionality, and better performance.</p>
-                    <div class="mt-4">
-                        <span class="text-xs font-mono px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded-full border border-cyan-500/30">Redesign</span>
-                        <span class="text-xs font-mono px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded-full border border-cyan-500/30">Migration</span>
-                        <span class="text-xs font-mono px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded-full border border-cyan-500/30">Modernization</span>
-                    </div>
-                </div>
-                
-                <div class="glass rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-300 hover:scale-105 group">
-                    <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-cyan-500 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-database text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Data Entry & Management</h3>
-                    <p class="text-zinc-400 leading-relaxed">Accurate data entry, database management, and data processing services for various business needs.</p>
-                    <div class="mt-4">
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">Database</span>
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">Processing</span>
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">Management</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Showcase -->
-    <section id="projects" class="py-20 px-6 max-w-7xl mx-auto">
-        <div class="text-center mb-16 space-y-4">
-            <h2 class="text-4xl md:text-5xl font-bold">Featured Case Studies</h2>
-            <p class="text-zinc-400 text-lg">Real-world projects with complete solutions</p>
-            
-            <!-- Filter Buttons -->
-            <div class="flex flex-wrap justify-center gap-3 pt-6">
-                <button onclick="filterProjects('all')" class="filter-btn active px-6 py-2 rounded-full font-semibold transition-all duration-300">All</button>
-                <button onclick="filterProjects('business')" class="filter-btn px-6 py-2 rounded-full font-semibold transition-all duration-300">Business</button>
-                <button onclick="filterProjects('ecommerce')" class="filter-btn px-6 py-2 rounded-full font-semibold transition-all duration-300">E-commerce</button>
-                <button onclick="filterProjects('services')" class="filter-btn px-6 py-2 rounded-full font-semibold transition-all duration-300">Services</button>
-            </div>
-        </div>
-        
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Project 1: Saloon Website -->
-            <div class="project-card group relative glass rounded-2xl overflow-hidden hover:border-purple-500/50 transition-all duration-500 hover:scale-105" data-category="business">
-                <div class="aspect-video overflow-hidden relative">
-                    <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&h=600&fit=crop" alt="Saloon Website" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div class="p-6 space-y-4">
-                    <div class="flex items-center justify-between">
-                        <h3 class="text-2xl font-bold">Luxury Saloon Website</h3>
-                        <span class="px-3 py-1 bg-green-500/20 text-green-300 text-xs font-bold rounded-full">Live</span>
-                    </div>
-                    <p class="text-zinc-400">Complete website with online booking system, service catalog, and gallery for a premium beauty salon.</p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">#WordPress</span>
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">#Booking System</span>
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">#Gallery</span>
-                    </div>
-                    <div class="flex gap-3 pt-2">
-                        <a href="https://saloon-example.com" target="_blank" class="flex-1 flex items-center justify-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors font-semibold py-2 backdrop-blur-md bg-cyan-500/10 rounded-lg border border-cyan-500/30 hover:bg-cyan-500/20">
-                            <i class="fas fa-external-link-alt"></i>
-                            Live Demo
-                        </a>
-                        <a href="https://github.com/yourusername/saloon-website" target="_blank" class="flex items-center justify-center gap-2 text-purple-400 hover:text-purple-300 transition-colors font-semibold px-4 py-2 backdrop-blur-md bg-purple-500/10 rounded-lg border border-purple-500/30 hover:bg-purple-500/20">
-                            <i class="fab fa-github"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project 2: Construction Company -->
-            <div class="project-card group relative glass rounded-2xl overflow-hidden hover:border-purple-500/50 transition-all duration-500 hover:scale-105" data-category="business">
-                <div class="aspect-video overflow-hidden relative">
-                    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=600&fit=crop" alt="Construction Company" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div class="p-6 space-y-4">
-                    <div class="flex items-center justify-between">
-                        <h3 class="text-2xl font-bold">Construction Company Portal</h3>
-                        <span class="px-3 py-1 bg-green-500/20 text-green-300 text-xs font-bold rounded-full">Live</span>
-                    </div>
-                    <p class="text-zinc-400">Corporate website with project portfolio, client login system, and project management dashboard.</p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">#React</span>
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">#Node.js</span>
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">#MongoDB</span>
-                    </div>
-                    <div class="flex gap-3 pt-2">
-                        <a href="https://construction-example.com" target="_blank" class="flex-1 flex items-center justify-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors font-semibold py-2 backdrop-blur-md bg-cyan-500/10 rounded-lg border border-cyan-500/30 hover:bg-cyan-500/20">
-                            <i class="fas fa-external-link-alt"></i>
-                            Live Demo
-                        </a>
-                        <a href="https://github.com/yourusername/construction-portal" target="_blank" class="flex items-center justify-center gap-2 text-purple-400 hover:text-purple-300 transition-colors font-semibold px-4 py-2 backdrop-blur-md bg-purple-500/10 rounded-lg border border-purple-500/30 hover:bg-purple-500/20">
-                            <i class="fab fa-github"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Project 3: Car Rental Shop -->
-            <div class="project-card group relative glass rounded-2xl overflow-hidden hover:border-purple-500/50 transition-all duration-500 hover:scale-105" data-category="services">
-                <div class="aspect-video overflow-hidden relative">
-                    <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800&h=600&fit=crop" alt="Car Rental Shop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div class="p-6 space-y-4">
-                    <div class="flex items-center justify-between">
-                        <h3 class="text-2xl font-bold">Car Rental System</h3>
-                        <span class="px-3 py-1 bg-green-500/20 text-green-300 text-xs font-bold rounded-full">Live</span>
-                    </div>
-                    <p class="text-zinc-400">Complete booking system with vehicle inventory, payment integration, and admin dashboard.</p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">#PHP</span>
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">#MySQL</span>
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">#Stripe</span>
-                    </div>
-                    <div class="flex gap-3 pt-2">
-                        <a href="https://carrental-example.com" target="_blank" class="flex-1 flex items-center justify-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors font-semibold py-2 backdrop-blur-md bg-cyan-500/10 rounded-lg border border-cyan-500/30 hover:bg-cyan-500/20">
-                            <i class="fas fa-external-link-alt"></i>
-                            Live Demo
-                        </a>
-                        <a href="https://github.com/yourusername/car-rental" target="_blank" class="flex items-center justify-center gap-2 text-purple-400 hover:text-purple-300 transition-colors font-semibold px-4 py-2 backdrop-blur-md bg-purple-500/10 rounded-lg border border-purple-500/30 hover:bg-purple-500/20">
-                            <i class="fab fa-github"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project 4: Dog Shop -->
-            <div class="project-card group relative glass rounded-2xl overflow-hidden hover:border-purple-500/50 transition-all duration-500 hover:scale-105" data-category="ecommerce">
-                <div class="aspect-video overflow-hidden relative">
-                    <img src="https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993?w=800&h=600&fit=crop" alt="Dog Shop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div class="p-6 space-y-4">
-                    <div class="flex items-center justify-between">
-                        <h3 class="text-2xl font-bold">Pet Supplies E-commerce</h3>
-                        <span class="px-3 py-1 bg-green-500/20 text-green-300 text-xs font-bold rounded-full">Live</span>
-                    </div>
-                    <p class="text-zinc-400">Full-featured online store for pet supplies with cart, checkout, and inventory management.</p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">#WooCommerce</span>
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">#WordPress</span>
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">#PayPal</span>
-                    </div>
-                    <div class="flex gap-3 pt-2">
-                        <a href="https://petshop-example.com" target="_blank" class="flex-1 flex items-center justify-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors font-semibold py-2 backdrop-blur-md bg-cyan-500/10 rounded-lg border border-cyan-500/30 hover:bg-cyan-500/20">
-                            <i class="fas fa-external-link-alt"></i>
-                            Live Demo
-                        </a>
-                        <a href="https://github.com/yourusername/pet-shop" target="_blank" class="flex items-center justify-center gap-2 text-purple-400 hover:text-purple-300 transition-colors font-semibold px-4 py-2 backdrop-blur-md bg-purple-500/10 rounded-lg border border-purple-500/30 hover:bg-purple-500/20">
-                            <i class="fab fa-github"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Project 5: Broker Company -->
-            <div class="project-card group relative glass rounded-2xl overflow-hidden hover:border-purple-500/50 transition-all duration-500 hover:scale-105" data-category="business">
-                <div class="aspect-video overflow-hidden relative">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop" alt="Broker Company" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div class="p-6 space-y-4">
-                    <div class="flex items-center justify-between">
-                        <h3 class="text-2xl font-bold">Real Estate Broker Portal</h3>
-                        <span class="px-3 py-1 bg-green-500/20 text-green-300 text-xs font-bold rounded-full">Live</span>
-                    </div>
-                    <p class="text-zinc-400">Property listing platform with advanced search, agent profiles, and lead management system.</p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">#Laravel</span>
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">#Vue.js</span>
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">#MySQL</span>
-                    </div>
-                    <div class="flex gap-3 pt-2">
-                        <a href="https://broker-example.com" target="_blank" class="flex-1 flex items-center justify-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors font-semibold py-2 backdrop-blur-md bg-cyan-500/10 rounded-lg border border-cyan-500/30 hover:bg-cyan-500/20">
-                            <i class="fas fa-external-link-alt"></i>
-                            Live Demo
-                        </a>
-                        <a href="https://github.com/yourusername/real-estate-portal" target="_blank" class="flex items-center justify-center gap-2 text-purple-400 hover:text-purple-300 transition-colors font-semibold px-4 py-2 backdrop-blur-md bg-purple-500/10 rounded-lg border border-purple-500/30 hover:bg-purple-500/20">
-                            <i class="fab fa-github"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project 6: Custom CRM System -->
-            <div class="project-card group relative glass rounded-2xl overflow-hidden hover:border-purple-500/50 transition-all duration-500 hover:scale-105" data-category="business">
-                <div class="aspect-video overflow-hidden relative">
-                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop" alt="CRM System" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div class="p-6 space-y-4">
-                    <div class="flex items-center justify-between">
-                        <h3 class="text-2xl font-bold">Custom CRM Solution</h3>
-                        <span class="px-3 py-1 bg-green-500/20 text-green-300 text-xs font-bold rounded-full">Live</span>
-                    </div>
-                    <p class="text-zinc-400">Tailored customer relationship management system with email integration and analytics.</p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">#Django</span>
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">#React</span>
-                        <span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">#PostgreSQL</span>
-                    </div>
-                    <div class="flex gap-3 pt-2">
-                        <a href="https://crm-example.com" target="_blank" class="flex-1 flex items-center justify-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors font-semibold py-2 backdrop-blur-md bg-cyan-500/10 rounded-lg border border-cyan-500/30 hover:bg-cyan-500/20">
-                            <i class="fas fa-external-link-alt"></i>
-                            Live Demo
-                        </a>
-                        <a href="https://github.com/yourusername/custom-crm" target="_blank" class="flex items-center justify-center gap-2 text-purple-400 hover:text-purple-300 transition-colors font-semibold px-4 py-2 backdrop-blur-md bg-purple-500/10 rounded-lg border border-purple-500/30 hover:bg-purple-500/20">
-                            <i class="fab fa-github"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Load More Button -->
-        <div class="text-center mt-12">
-            <button onclick="loadMoreProjects()" class="glass px-8 py-3 rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 group">
-                View More Projects
-                <i class="fas fa-chevron-down ml-2 group-hover:translate-y-1 transition-transform"></i>
-            </button>
-        </div>
-    </section>
-
-    <!-- Client Testimonials -->
-    <section id="testimonials" class="py-20 px-6 bg-gradient-to-b from-zinc-950 to-zinc-900">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16 space-y-4">
-                <h2 class="text-4xl md:text-5xl font-bold">Client Success Stories</h2>
-                <p class="text-zinc-400 text-lg">What my clients say about working with me</p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="glass rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-300">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-cyan-500 rounded-full flex items-center justify-center">
-                            <i class="fas fa-cut"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold">Sarah Johnson</h3>
-                            <p class="text-zinc-400 text-sm">Owner, Glamour Saloon</p>
-                        </div>
-                    </div>
-                    <p class="text-zinc-300 italic">"Mandil transformed our salon's online presence. The booking system increased our appointments by 40%. His attention to detail and technical expertise exceeded our expectations."</p>
-                </div>
-                
-                <div class="glass rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-300">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-12 h-12 bg-gradient-to-br from-cyan-500 to-purple-500 rounded-full flex items-center justify-center">
-                            <i class="fas fa-building"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold">Michael Chen</h3>
-                            <p class="text-zinc-400 text-sm">Director, Urban Builders Ltd.</p>
-                        </div>
-                    </div>
-                    <p class="text-zinc-300 italic">"The construction portal Mandil built for us streamlined our project management. Client communication improved dramatically, and we saw a 35% increase in inquiries."</p>
-                </div>
-                
-                <div class="glass rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-300">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-                            <i class="fas fa-car"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold">David Rodriguez</h3>
-                            <p class="text-zinc-400 text-sm">Manager, QuickCar Rentals</p>
-                        </div>
-                    </div>
-                    <p class="text-zinc-300 italic">"Our car rental business doubled its online bookings after Mandil developed our system. The payment integration and admin dashboard made operations so much easier."</p>
-                </div>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8 mt-8">
-                <div class="glass rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-300">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-cyan-500 rounded-full flex items-center justify-center">
-                            <i class="fas fa-paw"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold">Emma Wilson</h3>
-                            <p class="text-zinc-400 text-sm">Owner, Happy Paws Pet Shop</p>
-                        </div>
-                    </div>
-                    <p class="text-zinc-300 italic">"Our e-commerce website by Mandil has been a game-changer. Sales increased by 60% in the first month. The inventory management system saved us hours every day."</p>
-                </div>
-                
-                <div class="glass rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-300">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
-                            <i class="fas fa-home"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold">Robert Kim</h3>
-                            <p class="text-zinc-400 text-sm">CEO, Prime Properties</p>
-                        </div>
-                    </div>
-                    <p class="text-zinc-300 italic">"Mandil's real estate portal helped us manage 200+ properties efficiently. The lead tracking system alone has increased our conversion rate by 45%."</p>
-                </div>
-                
-                <div class="glass rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-300">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-red-500 rounded-full flex items-center justify-center">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold">Lisa Anderson</h3>
-                            <p class="text-zinc-400 text-sm">Marketing Director, TechGrowth Inc.</p>
-                        </div>
-                    </div>
-                    <p class="text-zinc-300 italic">"The custom CRM system Mandil developed transformed our sales process. Email integration and analytics gave us insights we never had before. Highly recommended!"</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 px-6 max-w-6xl mx-auto">
-        <div class="grid md:grid-cols-2 gap-12">
-            <div class="space-y-8">
-                <h2 class="text-4xl md:text-5xl font-bold">Let's Work Together</h2>
-                <p class="text-zinc-400 text-lg leading-relaxed">
-                    Have a project in mind? Let's discuss how we can create something amazing together. I'm currently available for freelance work and full-time opportunities.
-                </p>
-                
-                <!-- Success Message -->
-                <div id="successMessage" class="success-message bg-green-500/20 border border-green-500/30 rounded-xl p-6">
-                    <div class="flex items-center gap-3">
-                        <i class="fas fa-check-circle text-green-400 text-2xl"></i>
-                        <div>
-                            <h3 class="font-bold text-green-300">Message Sent Successfully!</h3>
-                            <p class="text-green-200 text-sm">Thank you for your message. I'll get back to you within 24 hours.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="space-y-6">
-                    <a href="mailto:mashsolutions26@gmail.com " class="flex items-center gap-4 group">
-                        <div class="w-14 h-14 bg-gradient-to-r from-purple-500/20 to-cyan-500/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <i class="fas fa-envelope text-purple-400 text-xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-lg">Email</h3>
-                            <p class="text-zinc-400 group-hover:text-cyan-300 transition-colors">mashsolutions26@gmail.com</p>
-                        </div>
-                    </a>
-                    
-                    <a href="https://www.linkedin.com/in/mandil-dissanayake-47bb953a1/" target="_blank" class="flex items-center gap-4 group">
-                        <div class="w-14 h-14 bg-gradient-to-r from-purple-500/20 to-cyan-500/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <i class="fab fa-linkedin-in text-purple-400 text-xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-lg">LinkedIn</h3>
-                            <p class="text-zinc-400 group-hover:text-cyan-300 transition-colors">https://www.linkedin.com/in/mandil-dissanayake-47bb953a1/</p>
-                        </div>
-                    </a>
-                    
-                    <a href="https://github.com/mandil11" target="_blank" class="flex items-center gap-4 group">
-                        <div class="w-14 h-14 bg-gradient-to-r from-purple-500/20 to-cyan-500/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <i class="fab fa-github text-purple-400 text-xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-lg">GitHub</h3>
-                            <p class="text-zinc-400 group-hover:text-cyan-300 transition-colors">https://github.com/mandil11</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            
-            <form id="contactForm" class="space-y-6">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div>
-                        <label for="name" class="block text-sm font-medium text-zinc-300 mb-2">Name *</label>
-                        <input type="text" id="name" required class="w-full px-4 py-3 glass rounded-lg text-white focus:outline-none focus:border-purple-500 transition-all" placeholder="Your Name">
-                    </div>
-                    <div>
-                        <label for="email" class="block text-sm font-medium text-zinc-300 mb-2">Email *</label>
-                        <input type="email" id="email" required class="w-full px-4 py-3 glass rounded-lg text-white focus:outline-none focus:border-purple-500 transition-all" placeholder="your@email.com">
-                    </div>
-                </div>
-                <div>
-                    <label for="subject" class="block text-sm font-medium text-zinc-300 mb-2">Subject *</label>
-                    <input type="text" id="subject" required class="w-full px-4 py-3 glass rounded-lg text-white focus:outline-none focus:border-purple-500 transition-all" placeholder="Project Inquiry">
-                </div>
-                <div>
-                    <label for="message" class="block text-sm font-medium text-zinc-300 mb-2">Message *</label>
-                    <textarea id="message" rows="4" required class="w-full px-4 py-3 glass rounded-lg text-white focus:outline-none focus:border-purple-500 transition-all resize-none" placeholder="Tell me about your project..."></textarea>
-                </div>
-                <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-purple-600 to-cyan-600 px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 flex items-center justify-center gap-2">
-                    <i class="fas fa-paper-plane"></i>
-                    Send Message
-                </button>
-                <p class="text-zinc-500 text-sm text-center">* Required fields</p>
-            </form>
-        </div>
-    </section>
-
     <!-- Footer -->
     <footer class="py-12 px-6 border-t border-zinc-800">
         <div class="max-w-6xl mx-auto">
@@ -1297,6 +1725,39 @@
     <!-- JavaScript -->
     <script>
         // ====================
+        // Loading Screen - UPDATED
+        // ====================
+        window.addEventListener('load', () => {
+            // Show loading elements sequentially
+            const loadingElements = document.querySelectorAll('#loadingScreen .loading-text, #loadingScreen .loading-subtext, #loadingScreen .loading-spinner, #loadingScreen .loading-dots, #loadingScreen .text-zinc-400');
+            
+            loadingElements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 300);
+            });
+            
+            // Hide loading screen after 3 seconds
+            setTimeout(() => {
+                document.getElementById('loadingScreen').classList.add('hidden');
+                document.getElementById('mainContent').style.display = 'block';
+                
+                // Initialize projects with animation
+                initializeProjects();
+                
+                // Animate projects after a short delay
+                setTimeout(() => {
+                    animateProjects();
+                }, 500);
+            }, 3000);
+        });
+
+        // ====================
         // Firebase Configuration
         // ====================
         const firebaseConfig = {
@@ -1312,6 +1773,148 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
+
+        // ====================
+        // Projects Data
+        // ====================
+        const projects = [
+            {
+                id: 1,
+                title: "Luxury Saloon Website",
+                category: "business",
+                description: "Complete website with online booking system, service catalog, and gallery for a premium beauty salon.",
+                tags: ["#WordPress", "#Booking System", "#Gallery"],
+                image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&h=600&fit=crop",
+                liveDemo: "https://saloon-example.com",
+                github: "https://github.com/yourusername/saloon-website"
+            },
+            {
+                id: 2,
+                title: "Construction Company Portal",
+                category: "business",
+                description: "Corporate website with project portfolio, client login system, and project management dashboard.",
+                tags: ["#React", "#Node.js", "#MongoDB"],
+                image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=600&fit=crop",
+                liveDemo: "https://construction-example.com",
+                github: "https://github.com/yourusername/construction-portal"
+            },
+            {
+                id: 3,
+                title: "Car Rental System",
+                category: "services",
+                description: "Complete booking system with vehicle inventory, payment integration, and admin dashboard.",
+                tags: ["#PHP", "#MySQL", "#Stripe"],
+                image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800&h=600&fit=crop",
+                liveDemo: "https://carrental-example.com",
+                github: "https://github.com/yourusername/car-rental"
+            },
+            {
+                id: 4,
+                title: "Pet Supplies E-commerce",
+                category: "ecommerce",
+                description: "Full-featured online store for pet supplies with cart, checkout, and inventory management.",
+                tags: ["#WooCommerce", "#WordPress", "#PayPal"],
+                image: "https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993?w=800&h=600&fit=crop",
+                liveDemo: "https://petshop-example.com",
+                github: "https://github.com/yourusername/pet-shop"
+            },
+            {
+                id: 5,
+                title: "Real Estate Broker Portal",
+                category: "business",
+                description: "Property listing platform with advanced search, agent profiles, and lead management system.",
+                tags: ["#Laravel", "#Vue.js", "#MySQL"],
+                image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
+                liveDemo: "https://broker-example.com",
+                github: "https://github.com/yourusername/real-estate-portal"
+            },
+            {
+                id: 6,
+                title: "Custom CRM Solution",
+                category: "business",
+                description: "Tailored customer relationship management system with email integration and analytics.",
+                tags: ["#Django", "#React", "#PostgreSQL"],
+                image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop",
+                liveDemo: "https://crm-example.com",
+                github: "https://github.com/yourusername/custom-crm"
+            }
+        ];
+
+        // ====================
+        // Initialize Projects
+        // ====================
+        function initializeProjects() {
+            const projectsContainer = document.getElementById('projectsContainer');
+            projectsContainer.innerHTML = '';
+            
+            projects.forEach((project, index) => {
+                const projectCard = document.createElement('div');
+                projectCard.className = `project-card group relative glass rounded-2xl overflow-hidden hover:border-purple-500/50 transition-all duration-500 hover:scale-105 project-card-animated`;
+                projectCard.dataset.category = project.category;
+                projectCard.style.animationDelay = `${index * 0.1}s`;
+                
+                projectCard.innerHTML = `
+                    <div class="aspect-video overflow-hidden relative">
+                        <img src="${project.image}" alt="${project.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-2xl font-bold">${project.title}</h3>
+                            <span class="px-3 py-1 bg-green-500/20 text-green-300 text-xs font-bold rounded-full">Live</span>
+                        </div>
+                        <p class="text-zinc-400">${project.description}</p>
+                        <div class="flex flex-wrap gap-2">
+                            ${project.tags.map(tag => `<span class="text-xs font-mono px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">${tag}</span>`).join('')}
+                        </div>
+                        <div class="flex gap-3 pt-2">
+                            <a href="${project.liveDemo}" target="_blank" class="flex-1 flex items-center justify-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors font-semibold py-2 backdrop-blur-md bg-cyan-500/10 rounded-lg border border-cyan-500/30 hover:bg-cyan-500/20">
+                                <i class="fas fa-external-link-alt"></i>
+                                Live Demo
+                            </a>
+                            <a href="${project.github}" target="_blank" class="flex items-center justify-center gap-2 text-purple-400 hover:text-purple-300 transition-colors font-semibold px-4 py-2 backdrop-blur-md bg-purple-500/10 rounded-lg border border-purple-500/30 hover:bg-purple-500/20">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                `;
+                
+                projectsContainer.appendChild(projectCard);
+            });
+        }
+
+        // ====================
+        // Animate Projects
+        // ====================
+        function animateProjects() {
+            const projectCards = document.querySelectorAll('.project-card');
+            
+            projectCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('visible');
+                }, index * 100);
+            });
+        }
+
+        // ====================
+        // Greeting Function
+        // ====================
+        function getGreeting() {
+            const hour = new Date().getHours();
+            let greeting = '';
+            
+            if (hour >= 5 && hour < 12) {
+                greeting = 'Good Morning';
+            } else if (hour >= 12 && hour < 17) {
+                greeting = 'Good Afternoon';
+            } else if (hour >= 17 && hour < 21) {
+                greeting = 'Good Evening';
+            } else {
+                greeting = 'Good Night';
+            }
+            
+            return greeting;
+        }
 
         // ====================
         // Authentication State Listener
@@ -1343,6 +1946,7 @@
             // Get user initials for avatar
             const displayName = user.displayName || user.email.split('@')[0];
             const initials = displayName.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+            const greeting = getGreeting();
             
             // Update desktop UI
             document.getElementById('authButtons').style.display = 'none';
@@ -1351,6 +1955,7 @@
             document.getElementById('userName').textContent = displayName;
             document.getElementById('menuUserName').textContent = displayName;
             document.getElementById('menuUserEmail').textContent = user.email;
+            document.getElementById('menuGreeting').textContent = greeting;
             
             // Update mobile UI
             document.getElementById('mobileAuthButtons').style.display = 'none';
@@ -1358,19 +1963,39 @@
             document.getElementById('mobileUserAvatar').textContent = initials;
             document.getElementById('mobileUserName').textContent = displayName;
             document.getElementById('mobileUserEmail').textContent = user.email;
+            document.getElementById('mobileGreeting').textContent = greeting;
             
             // Update dashboard
             document.getElementById('dashboardUserName').textContent = displayName;
             document.getElementById('dashboardFullName').textContent = displayName;
             document.getElementById('dashboardEmail').textContent = user.email;
             document.getElementById('dashboardUserAvatar').textContent = initials;
+            document.getElementById('dashboardGreeting').textContent = greeting;
+            document.getElementById('userGreeting').textContent = greeting;
             
             // Set account creation date
             if (user.metadata && user.metadata.creationTime) {
-                const creationDate = user.metadata.creationTime;
-                document.getElementById('accountSince').textContent = new Date(creationDate).toLocaleDateString();
+                const creationDate = new Date(user.metadata.creationTime);
+                document.getElementById('accountSince').textContent = creationDate.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
             }
-            document.getElementById('lastLogin').textContent = new Date().toLocaleString();
+            
+            // Set last login date
+            const lastLogin = new Date();
+            document.getElementById('lastLogin').textContent = lastLogin.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            
+            // Store last login in localStorage
+            localStorage.setItem('lastLogin', lastLogin.toISOString());
             
             // Hide main content, show dashboard if on dashboard page
             if (window.location.hash === '#dashboard') {
@@ -1396,9 +2021,10 @@
         // ====================
         // Auth Modal Functions
         // ====================
-        function openAuthModal() {
+        function openAuthModal(tab = 'login') {
             document.getElementById('authModal').classList.add('active');
             document.body.style.overflow = 'hidden';
+            switchAuthTab(tab);
         }
 
         function closeAuthModal() {
@@ -1427,6 +2053,31 @@
             // Update tab content
             document.getElementById('loginTab').classList.toggle('active', tab === 'login');
             document.getElementById('registerTab').classList.toggle('active', tab === 'register');
+        }
+
+        // ====================
+        // Social Login Functions
+        // ====================
+        async function loginWithGoogle() {
+            try {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                const result = await auth.signInWithPopup(provider);
+                showNotification('Logged in with Google successfully!', 'success');
+                closeAuthModal();
+            } catch (error) {
+                showNotification('Google login failed: ' + error.message, 'error');
+            }
+        }
+
+        async function loginWithGithub() {
+            try {
+                const provider = new firebase.auth.GithubAuthProvider();
+                const result = await auth.signInWithPopup(provider);
+                showNotification('Logged in with GitHub successfully!', 'success');
+                closeAuthModal();
+            } catch (error) {
+                showNotification('GitHub login failed: ' + error.message, 'error');
+            }
         }
 
         // ====================
@@ -1477,8 +2128,22 @@
                 await userCredential.user.updateProfile({
                     displayName: name
                 });
+                
+                // Store user data with name
+                localStorage.setItem('user', JSON.stringify({
+                    uid: userCredential.user.uid,
+                    email: userCredential.user.email,
+                    displayName: name,
+                    lastLogin: new Date().toISOString()
+                }));
+                
                 showNotification('Account created successfully!', 'success');
                 closeAuthModal();
+                
+                // Reload user data to update UI
+                await userCredential.user.reload();
+                updateUIForUser(userCredential.user);
+                
             } catch (error) {
                 showNotification(getErrorMessage(error), 'error');
             } finally {
@@ -1570,8 +2235,8 @@
                 return;
             }
 
-            // Replace with your actual WhatsApp number
-            const whatsappNumber = '947712345678'; // Your WhatsApp number
+            // Your WhatsApp number
+            const whatsappNumber = '94750700961'; // Your actual WhatsApp number
             
             const sendBtn = document.getElementById('sendWhatsAppBtn');
             const originalHTML = sendBtn.innerHTML;
@@ -1664,6 +2329,17 @@
             } else {
                 navContainer.classList.remove('scrolled');
             }
+            
+            // Hide scroll indicator after scrolling a bit
+            const scrollIndicator = document.querySelector('.scroll-indicator');
+            if (scrollIndicator) {
+                if (window.scrollY > 100) {
+                    scrollIndicator.style.opacity = '0';
+                    scrollIndicator.style.transition = 'opacity 0.5s ease';
+                } else {
+                    scrollIndicator.style.opacity = '1';
+                }
+            }
         });
 
         // ====================
@@ -1692,12 +2368,14 @@
             event.target.classList.add('active');
 
             // Filter projects
-            const projects = document.querySelectorAll('.project-card');
-            projects.forEach(project => {
+            const projectCards = document.querySelectorAll('.project-card');
+            projectCards.forEach(project => {
                 if (category === 'all' || project.dataset.category === category) {
                     project.classList.remove('hidden');
+                    project.classList.add('visible');
                 } else {
                     project.classList.add('hidden');
+                    project.classList.remove('visible');
                 }
             });
         }
@@ -1820,16 +2498,25 @@
             if (savedUser) {
                 try {
                     const user = JSON.parse(savedUser);
+                    // Get last login from localStorage
+                    const lastLogin = localStorage.getItem('lastLogin');
+                    
                     // Create a mock user object
                     const mockUser = {
                         uid: user.uid,
                         email: user.email,
                         displayName: user.displayName,
                         metadata: {
-                            creationTime: user.lastLogin
+                            creationTime: lastLogin || user.lastLogin
                         }
                     };
                     updateUIForUser(mockUser);
+                    
+                    // Display last login time
+                    if (lastLogin) {
+                        const lastLoginDate = new Date(lastLogin);
+                        document.getElementById('lastLogin').textContent = lastLoginDate.toLocaleString();
+                    }
                 } catch (e) {
                     console.log('Error loading saved user:', e);
                 }
@@ -1837,6 +2524,14 @@
             
             // Set default active tab
             switchAuthTab('login');
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                const userMenu = document.getElementById('userMenu');
+                if (userMenu && !userMenu.contains(e.target) && !e.target.closest('.group')) {
+                    userMenu.classList.add('hidden');
+                }
+            });
         });
     </script>
 </body>
