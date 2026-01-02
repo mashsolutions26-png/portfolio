@@ -872,6 +872,25 @@
             background: rgba(139, 92, 246, 0.1);
             transform: translateY(-2px);
         }
+
+        .download-cv-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  border-radius: 999px;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.download-cv-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(139, 92, 246, 0.45);
+}
+
         
         /* Social Login Buttons */
         .social-login-buttons {
@@ -1414,13 +1433,6 @@
                     
                     <div class="tech-item">
                         <div class="tech-icon">
-                            <i class="fab fa-vuejs text-green-500"></i>
-                        </div>
-                        <div class="tech-name">Vue.js</div>
-                    </div>
-                    
-                    <div class="tech-item">
-                        <div class="tech-icon">
                             <i class="fab fa-angular text-red-500"></i>
                         </div>
                         <div class="tech-name">Angular</div>
@@ -1528,13 +1540,6 @@
                     
                     <div class="tech-item">
                         <div class="tech-icon">
-                            <i class="fas fa-server text-green-300"></i>
-                        </div>
-                        <div class="tech-name">AWS</div>
-                    </div>
-                    
-                    <div class="tech-item">
-                        <div class="tech-icon">
                             <i class="fas fa-cloud text-blue-300"></i>
                         </div>
                         <div class="tech-name">Cloudflare</div>
@@ -1555,10 +1560,9 @@
                         Over the years, I've successfully delivered 120+ projects for clients across various industries, from small businesses to large enterprises. My expertise spans web development, graphic design, social media management, and comprehensive digital solutions.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4">
-                        <button onclick="downloadResume()" class="bg-gradient-to-r from-purple-600 to-cyan-600 px-4 sm:px-6 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 flex items-center justify-center gap-2">
-                            <i class="fas fa-download"></i>
-                            Download CV
-                        </button>
+<a href="CV.png" download="Mandil_Dissanayake_CV.png" class="download-cv-btn">
+  Download CV
+</a>
                         <button onclick="scrollToContact()" class="glass px-4 sm:px-6 py-3 rounded-lg font-semibold hover:bg-white/20 transition-all duration-300">
                             Contact Me
                         </button>
