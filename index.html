@@ -505,23 +505,35 @@
             color: white;
         }
         
-        /* Mobile Menu */
+        /* Mobile Menu Button */
         .mobile-nav {
             position: fixed;
             top: 0;
             right: 0;
             bottom: 0;
-            width: 300px;
+            width: 280px;
+            max-width: 85vw;
             background: rgba(24, 24, 27, 0.98);
             backdrop-filter: blur(20px);
             z-index: 100;
             transform: translateX(100%);
             transition: transform 0.3s ease;
             border-left: 1px solid rgba(255, 255, 255, 0.1);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
         
         .mobile-nav.open {
             transform: translateX(0);
+        }
+        
+        /* Mobile menu header sticky */
+        .mobile-nav-header {
+            position: sticky;
+            top: 0;
+            background: rgba(24, 24, 27, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 10;
         }
         
         /* Mobile Menu Overlay */
