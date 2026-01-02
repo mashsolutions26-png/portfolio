@@ -446,35 +446,18 @@
         }
         
         /* Dashboard Styles */
-/* Dashboard Styles */
-.dashboard-section {
-    display: none;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.dashboard-section.active {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.dashboard-section .profile-avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #8b5cf6, #06b6d4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 48px;
-    font-weight: bold;
-    color: white;
-    margin: 0 auto 20px auto;
-    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
-    animation: float 6s ease-in-out infinite;
-}
+        .dashboard-section {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .dashboard-section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
         
         .dashboard-card::before {
             content: '';
@@ -773,241 +756,141 @@
         }
         
         /* ==================== */
-        /* NAVIGATION STYLES */
+        /* UPDATED NAVIGATION STYLES */
         /* ==================== */
         
+        /* Nav links */
         .nav-link {
+            color: #a1a1aa;
             position: relative;
-            color: rgba(255, 255, 255, 0.7);
+            padding-bottom: 4px;
+            transition: color 0.3s ease;
         }
         
-        .nav-link:hover {
-            color: white;
-            background: rgba(139, 92, 246, 0.1);
+        .nav-link:hover,
+        .nav-link.active { 
+            color: white; 
         }
         
-        .nav-link.active {
-            color: white;
-        }
-        
-        .nav-link.active .nav-underline {
-            width: 100%;
-        }
-        
-        .nav-underline {
+        .nav-link.active::after {
+            content: "";
             position: absolute;
+            left: 0;
             bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #8b5cf6, #06b6d4);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover .nav-underline {
-            width: 60%;
-        }
-        
-        .nav-auth-btn {
-            padding: 10px 20px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 0.875rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        /* Mobile Navigation Styles */
-        .mobile-nav-link {
-            color: rgba(255, 255, 255, 0.8);
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        
-        .mobile-nav-link:hover {
-            background: linear-gradient(90deg, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.1));
-            border-color: rgba(139, 92, 246, 0.2);
-            color: white;
-            transform: translateX(5px);
-        }
-        
-        .mobile-auth-btn {
-            padding: 14px 20px;
-            border-radius: 12px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
             width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, #8b5cf6, #06b6d4);
         }
         
-        .mobile-auth-btn.login-btn {
-            background: linear-gradient(135deg, #8b5cf6, #6d28d9);
-            color: white;
-            border: none;
-        }
-        
-        .mobile-auth-btn.register-btn {
-            background: transparent;
-            border: 2px solid #8b5cf6;
-            color: #8b5cf6;
-        }
-        
-        .mobile-auth-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
-        }
-        
-        .mobile-profile-btn {
-            padding: 12px;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.75rem;
+        /* Mobile links */
+        .mobile-link {
+            display: block;
+            padding: 14px 20px;
+            border-bottom: 1px solid #27272a;
+            color: #a1a1aa;
             transition: all 0.3s ease;
         }
         
-        .mobile-profile-btn:hover {
-            background: rgba(139, 92, 246, 0.1);
-            border-color: rgba(139, 92, 246, 0.3);
-            transform: translateY(-2px);
+        .mobile-link:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
         }
         
-        .mobile-profile-btn.logout-btn:hover {
+        /* Main Navigation Bar */
+        .main-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: rgba(24, 24, 27, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Account Dropdown */
+        .account-dropdown {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            margin-top: 8px;
+            background: rgba(24, 24, 27, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            min-width: 200px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        .account-dropdown a,
+        .account-dropdown button {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 12px 16px;
+            color: #d1d5db;
+            transition: all 0.3s ease;
+        }
+        
+        .account-dropdown a:hover,
+        .account-dropdown button:hover {
+            background: rgba(139, 92, 246, 0.1);
+            color: white;
+        }
+        
+        .account-dropdown button.logout:hover {
             background: rgba(239, 68, 68, 0.1);
-            border-color: rgba(239, 68, 68, 0.3);
             color: #ef4444;
         }
         
-        .social-icon-btn {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
+        /* User Avatar */
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8b5cf6, #06b6d4);
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            font-weight: bold;
+            color: white;
         }
         
-        .social-icon-btn:hover {
-            transform: translateY(-2px);
-        }
-        
-        .social-icon-btn.facebook:hover {
-            background: #1877F2;
-            border-color: #1877F2;
-        }
-        
-        .social-icon-btn.linkedin:hover {
-            background: #0A66C2;
-            border-color: #0A66C2;
-        }
-        
-        .social-icon-btn.instagram:hover {
-            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
-            border-color: transparent;
-        }
-        
-        .social-icon-btn.github:hover {
-            background: #333;
-            border-color: #333;
-        }
-        
-        .social-icon-btn.whatsapp:hover {
-            background: #25D366;
-            border-color: #25D366;
-        }
-        
-        /* Enhanced User Menu */
-        #userMenu {
+        /* Mobile Menu */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 300px;
+            background: rgba(24, 24, 27, 0.98);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            background: rgba(24, 24, 27, 0.95);
-            border: 1px solid rgba(139, 92, 246, 0.2);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-        
-        #userMenu::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            right: 20px;
-            width: 20px;
-            height: 20px;
-            background: inherit;
-            transform: rotate(45deg);
-            border-left: 1px solid rgba(139, 92, 246, 0.2);
-            border-top: 1px solid rgba(139, 92, 246, 0.2);
-        }
-        
-        /* Mobile Menu Animations */
-        .mobile-menu {
+            z-index: 100;
             transform: translateX(100%);
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.3s ease;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .mobile-menu.open {
+        .mobile-nav.open {
             transform: translateX(0);
         }
         
-        /* Active Link Indicator */
-        .nav-link.active {
-            background: linear-gradient(90deg, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.1));
-            color: white;
+        /* Mobile Menu Overlay */
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 99;
+            display: none;
         }
         
-        .nav-link.active .nav-underline {
-            width: 100%;
-        }
-        
-        /* Mobile Active State */
-        .mobile-nav-link.active {
-            background: linear-gradient(90deg, rgba(139, 92, 246, 0.15), rgba(6, 182, 212, 0.15));
-            border-color: rgba(139, 92, 246, 0.3);
-            color: white;
-        }
-        
-        /* Gradient Border Effect */
-        .glass-border {
-            position: relative;
-            border: 2px solid transparent;
-            background-clip: padding-box;
-        }
-        
-        .glass-border::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #8b5cf6, #06b6d4, #8b5cf6);
-            border-radius: inherit;
-            z-index: -1;
-            opacity: 0.5;
-        }
-        
-        /* Glass Input Styles */
-        .glass-input {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-        }
-        
-        .glass-input:focus {
-            border-color: #8b5cf6;
-            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+        .mobile-overlay.open {
+            display: block;
         }
         
         /* Status Indicators */
@@ -1029,49 +912,15 @@
         }
         
         /* Responsive Adjustments */
-        @media (max-width: 1024px) {
-            .nav-link span {
-                display: none;
+        @media (max-width: 768px) {
+            .mobile-nav {
+                width: 100%;
             }
             
-            .nav-link {
-                padding: 10px;
-            }
-            
-            .nav-link i {
-                font-size: 1.1rem;
+            .tech-stack-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
             }
         }
-        
-        @media (max-width: 768px) {
-            .nav-container {
-                padding: 15px 20px;
-            }
-            
-            .dashboard-card {
-                padding: 1.5rem;
-            }
-            
-            .grid-cols-2 {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-    * {
-           animation: none !important;
-            transition: none !important;
-            }
-        }
-
-        @media (max-width: 768px) {
-          .glass,
-          .nav-container,
-         .auth-modal-content {
-            backdrop-filter: none !important;
-             -webkit-backdrop-filter: none !important;
-         }
-    }
     </style>
 </head>
 <body>
@@ -1222,426 +1071,140 @@
     </div>
 
     <!-- ==================== -->
-    <!-- NAVIGATION BAR -->
+    <!-- UPDATED NAVIGATION BAR -->
     <!-- ==================== -->
-    <nav class="fixed top-0 left-0 right-0 z-50 nav-container">
-        <div class="max-w-7xl mx-auto px-6 py-4">
-            <div class="flex items-center justify-between">
-                <!-- Logo with Animation -->
-                <a href="#home" class="text-2xl font-bold gradient-text group">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-lg flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
-                            <span class="font-bold">MD</span>
-                        </div>
-                        <div>
-                            <div class="text-lg leading-tight">Mandil</div>
-                            <div class="text-sm font-medium text-zinc-400">Dissanayake</div>
-                        </div>
-                    </div>
-                </a>
+    <nav class="main-nav">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#home" class="text-xl font-bold">
+                <span class="gradient-text">Mandil</span><span class="text-cyan-400">.</span>
+            </a>
 
-                <!-- Desktop Navigation -->
-                <div class="hidden lg:flex items-center gap-1">
-                    <!-- Navigation Links -->
-                    <div class="flex items-center gap-1 mr-8">
-                        <a href="#home" class="nav-link group relative px-4 py-2 rounded-lg transition-all duration-300">
-                            <div class="flex items-center gap-2">
-                                <i class="fas fa-home text-sm opacity-60 group-hover:opacity-100 group-hover:text-purple-400 transition-all"></i>
-                                <span>Home</span>
-                            </div>
-                            <div class="nav-underline"></div>
-                        </a>
-                        
-                        <a href="#about" class="nav-link group relative px-4 py-2 rounded-lg transition-all duration-300">
-                            <div class="flex items-center gap-2">
-                                <i class="fas fa-user text-sm opacity-60 group-hover:opacity-100 group-hover:text-cyan-400 transition-all"></i>
-                                <span>About</span>
-                            </div>
-                            <div class="nav-underline"></div>
-                        </a>
-                        
-                        <a href="#services" class="nav-link group relative px-4 py-2 rounded-lg transition-all duration-300">
-                            <div class="flex items-center gap-2">
-                                <i class="fas fa-cogs text-sm opacity-60 group-hover:opacity-100 group-hover:text-purple-400 transition-all"></i>
-                                <span>Services</span>
-                            </div>
-                            <div class="nav-underline"></div>
-                        </a>
-                        
-                        <a href="#tech-stack" class="nav-link group relative px-4 py-2 rounded-lg transition-all duration-300">
-                            <div class="flex items-center gap-2">
-                                <i class="fas fa-code text-sm opacity-60 group-hover:opacity-100 group-hover:text-cyan-400 transition-all"></i>
-                                <span>Tech Stack</span>
-                            </div>
-                            <div class="nav-underline"></div>
-                        </a>
-                        
-                        <a href="#projects" class="nav-link group relative px-4 py-2 rounded-lg transition-all duration-300">
-                            <div class="flex items-center gap-2">
-                                <i class="fas fa-briefcase text-sm opacity-60 group-hover:opacity-100 group-hover:text-purple-400 transition-all"></i>
-                                <span>Projects</span>
-                            </div>
-                            <div class="nav-underline"></div>
-                        </a>
-                        
-                        <a href="#testimonials" class="nav-link group relative px-4 py-2 rounded-lg transition-all duration-300">
-                            <div class="flex items-center gap-2">
-                                <i class="fas fa-comments text-sm opacity-60 group-hover:opacity-100 group-hover:text-cyan-400 transition-all"></i>
-                                <span>Clients</span>
-                            </div>
-                            <div class="nav-underline"></div>
-                        </a>
-                        
-                        <a href="#dashboard" class="nav-link group relative px-4 py-2 rounded-lg transition-all duration-300" onclick="openDashboard()">
-                            <div class="flex items-center gap-2">
-                                <i class="fas fa-user"></i>
-                                <span>Profile</span>
-                            </div>
-                            <div class="nav-underline"></div>
-                        </a>
-                        
-                        <a href="#contact" class="nav-link group relative px-4 py-2 rounded-lg transition-all duration-300">
-                            <div class="flex items-center gap-2">
-                                <i class="fas fa-envelope text-sm opacity-60 group-hover:opacity-100 group-hover:text-purple-400 transition-all"></i>
-                                <span>Contact</span>
-                            </div>
-                            <div class="nav-underline"></div>
-                        </a>
-                    </div>
+            <!-- Desktop Navigation Links -->
+            <ul class="hidden md:flex gap-8">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#tech-stack" class="nav-link">Tech Stack</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#testimonials" class="nav-link">Clients</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
 
-                    <!-- Auth Buttons -->
-                    <div id="authButtons" class="flex items-center gap-3">
-                        <button onclick="openAuthModal('login')" 
-                                class="nav-auth-btn login-btn group relative overflow-hidden">
-                            <i class="fas fa-sign-in-alt mr-2"></i>
-                            <span>Login</span>
-                            <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-cyan-600 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 opacity-30"></div>
-                        </button>
-                        
-                        <button onclick="openAuthModal('register')" 
-                                class="nav-auth-btn register-btn group relative overflow-hidden">
-                            <i class="fas fa-user-plus mr-2"></i>
-                            <span>Register</span>
-                            <div class="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-cyan-500/20 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
-                        </button>
-                    </div>
-
-                    <!-- User Profile (Logged In) -->
-                    <div id="userProfile" class="hidden items-center">
-                        <div class="relative group">
-                            <button onclick="toggleUserMenu()" 
-                                    class="flex items-center gap-3 px-4 py-2 rounded-xl hover:bg-white/10 transition-all duration-300">
-                                <div id="userAvatar" 
-                                     class="w-9 h-9 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full flex items-center justify-center text-sm font-bold shadow-lg shadow-purple-500/30">
-                                </div>
-                                <div class="text-left">
-                                    <div id="userName" class="font-semibold text-sm"></div>
-                                    <div class="text-xs text-zinc-400">View Profile</div>
-                                </div>
-                                <i class="fas fa-chevron-down text-xs text-zinc-400 group-hover:text-white transition-colors"></i>
-                            </button>
-                            
-                            <!-- Dropdown Menu -->
-                            <div id="userMenu" 
-                                 class="absolute right-0 mt-2 w-64 glass rounded-xl border border-zinc-700/50 shadow-2xl hidden transform origin-top-right transition-all duration-300 scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100">
-                                <div class="p-4 border-b border-zinc-700/50">
-                                    <div class="flex items-center gap-3">
-                                        <div id="menuUserAvatar" 
-                                             class="w-12 h-12 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full flex items-center justify-center text-lg font-bold">
-                                        </div>
-                                        <div>
-                                            <div id="menuUserName" class="font-bold text-sm"></div>
-                                            <div id="menuUserEmail" class="text-xs text-zinc-400 truncate max-w-[180px]"></div>
-                                            <div id="menuGreeting" class="greeting-message text-xs mt-1"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="py-2">
-                                    <a href="#dashboard" onclick="openDashboard()" 
-                                       class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition-colors group/item">
-                                        <div class="w-8 h-8 rounded-lg bg-gradient-to-r from-purple-500/20 to-transparent flex items-center justify-center">
-                                            <i class="fas fa-tachometer-alt text-purple-400"></i>
-                                        </div>
-                                        <div>
-                                            <div class="font-medium text-sm">Dashboard</div>
-                                            <div class="text-xs text-zinc-400">View your stats</div>
-                                        </div>
-                                    </a>
-                                    
-                                    <a href="#profile" onclick="editProfile()" 
-                                       class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition-colors group/item">
-                                        <div class="w-8 h-8 rounded-lg bg-gradient-to-r from-cyan-500/20 to-transparent flex items-center justify-center">
-                                            <i class="fas fa-user-cog text-cyan-400"></i>
-                                        </div>
-                                        <div>
-                                            <div class="font-medium text-sm">Profile Settings</div>
-                                            <div class="text-xs text-zinc-400">Manage your account</div>
-                                        </div>
-                                    </a>
-                                    
-                                    <a href="#messages" onclick="openMessages()" 
-                                       class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition-colors group/item">
-                                        <div class="w-8 h-8 rounded-lg bg-gradient-to-r from-purple-500/20 to-transparent flex items-center justify-center">
-                                            <i class="fas fa-envelope text-purple-400"></i>
-                                        </div>
-                                        <div>
-                                            <div class="font-medium text-sm">Messages</div>
-                                            <div class="text-xs text-zinc-400" id="unreadCount">0 unread</div>
-                                        </div>
-                                    </a>
-                                    
-                                    <div class="border-t border-zinc-700/50 my-2"></div>
-                                    
-                                    <button onclick="logout()" 
-                                            class="flex items-center gap-3 w-full px-4 py-3 hover:bg-red-500/10 text-red-400 transition-colors group/item">
-                                        <div class="w-8 h-8 rounded-lg bg-gradient-to-r from-red-500/20 to-transparent flex items-center justify-center">
-                                            <i class="fas fa-sign-out-alt"></i>
-                                        </div>
-                                        <div class="font-medium text-sm">Logout</div>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <!-- Desktop Account Section -->
+            <div class="hidden md:flex items-center gap-4">
+                <!-- Logged OUT -->
+                <div id="authButtons" class="flex gap-3">
+                    <button onclick="openAuthModal('login')" 
+                            class="px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 transition-colors">
+                        Login
+                    </button>
+                    <button onclick="openAuthModal('register')" 
+                            class="px-4 py-2 rounded-lg border border-purple-500 text-purple-400 hover:bg-purple-500/10 transition-colors">
+                        Register
+                    </button>
                 </div>
 
-                <!-- Mobile Menu Button -->
-                <button id="mobileMenuBtn" 
-                        class="lg:hidden relative w-10 h-10 rounded-lg glass flex items-center justify-center hover:bg-white/10 transition-all duration-300 group">
-                    <div class="w-6 h-5 relative">
-                        <span class="absolute top-0 left-0 w-full h-0.5 bg-white rounded-full transform transition-all duration-300 group-hover:bg-purple-400"></span>
-                        <span class="absolute top-1/2 -translate-y-1/2 left-0 w-4/5 h-0.5 bg-white rounded-full transform transition-all duration-300 group-hover:bg-cyan-400 group-hover:w-full"></span>
-                        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-white rounded-full transform transition-all duration-300 group-hover:bg-purple-400"></span>
-                    </div>
-                </button>
-            </div>
-        </div>
-    </nav>
+                <!-- Logged IN -->
+                <div id="userBox" class="hidden relative">
+                    <button onclick="toggleAccountMenu()" class="flex items-center gap-2">
+                        <div id="userAvatar" class="user-avatar">
+                            M
+                        </div>
+                        <span id="userName" class="text-sm"></span>
+                        <i class="fas fa-chevron-down text-xs"></i>
+                    </button>
 
-    <!-- Mobile Menu -->
-    <div id="mobileMenu" class="mobile-menu fixed inset-y-0 right-0 w-80 bg-zinc-900/95 backdrop-blur-xl z-50 lg:hidden shadow-2xl">
-        <div class="h-full flex flex-col">
-            <!-- Mobile Menu Header -->
-            <div class="p-6 border-b border-zinc-700/50">
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-xl flex items-center justify-center">
-                            <span class="font-bold text-lg">MD</span>
-                        </div>
-                        <div>
-                            <div class="text-xl font-bold gradient-text">Mandil</div>
-                            <div class="text-sm text-zinc-400">Portfolio</div>
-                        </div>
+                    <!-- Account Dropdown -->
+                    <div id="userMenu" class="account-dropdown hidden">
+                        <a href="#dashboard" onclick="openDashboard()" class="flex items-center gap-2">
+                            <i class="fas fa-tachometer-alt w-4"></i>
+                            Dashboard
+                        </a>
+                        <a href="#profile" onclick="editProfile()" class="flex items-center gap-2">
+                            <i class="fas fa-user-cog w-4"></i>
+                            Profile Settings
+                        </a>
+                        <a href="#messages" onclick="openMessages()" class="flex items-center gap-2">
+                            <i class="fas fa-envelope w-4"></i>
+                            Messages
+                        </a>
+                        <div class="border-t border-zinc-700 my-1"></div>
+                        <button onclick="logout()" class="logout flex items-center gap-2">
+                            <i class="fas fa-sign-out-alt w-4"></i>
+                            Logout
+                        </button>
                     </div>
-                    <button id="closeMenuBtn" 
-                            class="w-10 h-10 rounded-lg hover:bg-white/10 flex items-center justify-center transition-colors">
-                        <i class="fas fa-times text-xl"></i>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="menuBtn" class="md:hidden text-2xl" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div class="mobile-nav" id="mobileNav">
+            <div class="p-6 border-b border-zinc-700">
+                <div class="flex justify-between items-center">
+                    <div class="text-xl font-bold">
+                        <span class="gradient-text">Mandil</span><span class="text-cyan-400">.</span>
+                    </div>
+                    <button onclick="closeMobileMenu()" class="text-2xl">
+                        <i class="fas fa-times"></i>
                     </button>
                 </div>
             </div>
 
-            <!-- Mobile Navigation -->
-            <div class="flex-1 overflow-y-auto py-6">
-                <div class="space-y-1 px-4">
-                    <a href="#home" onclick="closeMobileMenu()" 
-                       class="mobile-nav-link group flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300">
-                        <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-purple-500/20 to-transparent flex items-center justify-center">
-                            <i class="fas fa-home text-purple-400"></i>
-                        </div>
-                        <div>
-                            <div class="font-semibold">Home</div>
-                            <div class="text-xs text-zinc-400">Welcome page</div>
-                        </div>
-                        <i class="fas fa-chevron-right ml-auto text-zinc-500 group-hover:text-white transition-colors"></i>
-                    </a>
-                    
-                    <a href="#about" onclick="closeMobileMenu()" 
-                       class="mobile-nav-link group flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300">
-                        <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-cyan-500/20 to-transparent flex items-center justify-center">
-                            <i class="fas fa-user text-cyan-400"></i>
-                        </div>
-                        <div>
-                            <div class="font-semibold">About</div>
-                            <div class="text-xs text-zinc-400">My background</div>
-                        </div>
-                        <i class="fas fa-chevron-right ml-auto text-zinc-500 group-hover:text-white transition-colors"></i>
-                    </a>
-                    
-                    <a href="#services" onclick="closeMobileMenu()" 
-                       class="mobile-nav-link group flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300">
-                        <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-purple-500/20 to-transparent flex items-center justify-center">
-                            <i class="fas fa-cogs text-purple-400"></i>
-                        </div>
-                        <div>
-                            <div class="font-semibold">Services</div>
-                            <div class="text-xs text-zinc-400">What I offer</div>
-                        </div>
-                        <i class="fas fa-chevron-right ml-auto text-zinc-500 group-hover:text-white transition-colors"></i>
-                    </a>
-                    
-                    <a href="#tech-stack" onclick="closeMobileMenu()" 
-                       class="mobile-nav-link group flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300">
-                        <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-cyan-500/20 to-transparent flex items-center justify-center">
-                            <i class="fas fa-code text-cyan-400"></i>
-                        </div>
-                        <div>
-                            <div class="font-semibold">Tech Stack</div>
-                            <div class="text-xs text-zinc-400">Technologies I use</div>
-                        </div>
-                        <i class="fas fa-chevron-right ml-auto text-zinc-500 group-hover:text-white transition-colors"></i>
-                    </a>
-                    
-                    <a href="#projects" onclick="closeMobileMenu()" 
-                       class="mobile-nav-link group flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300">
-                        <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-purple-500/20 to-transparent flex items-center justify-center">
-                            <i class="fas fa-briefcase text-purple-400"></i>
-                        </div>
-                        <div>
-                            <div class="font-semibold">Projects</div>
-                            <div class="text-xs text-zinc-400">Case studies</div>
-                        </div>
-                        <i class="fas fa-chevron-right ml-auto text-zinc-500 group-hover:text-white transition-colors"></i>
-                    </a>
-                    
-                    <a href="#testimonials" onclick="closeMobileMenu()" 
-                       class="mobile-nav-link group flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300">
-                        <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-cyan-500/20 to-transparent flex items-center justify-center">
-                            <i class="fas fa-comments text-cyan-400"></i>
-                        </div>
-                        <div>
-                            <div class="font-semibold">Clients</div>
-                            <div class="text-xs text-zinc-400">Testimonials</div>
-                        </div>
-                        <i class="fas fa-chevron-right ml-auto text-zinc-500 group-hover:text-white transition-colors"></i>
-                    </a>
-                    
-                    <a href="#dashboard" onclick="openDashboard(); closeMobileMenu()" 
-                       class="mobile-nav-link group flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300">
-                        <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-purple-500/20 to-transparent flex items-center justify-center">
-                            <i class="fas fa-tachometer-alt text-purple-400"></i>
-                        </div>
-                        <div>
-                            <div class="font-semibold">Profile</div>
-                            <div class="text-xs text-zinc-400">Account details</div>        
-                        </div>
-                        <i class="fas fa-user text-cyan-400"></i>
-                    </a>
-                    
-                    <a href="#contact" onclick="closeMobileMenu()" 
-                       class="mobile-nav-link group flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300">
-                        <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-purple-500/20 to-transparent flex items-center justify-center">
-                            <i class="fas fa-envelope text-purple-400"></i>
-                        </div>
-                        <div>
-                            <div class="font-semibold">Contact</div>
-                            <div class="text-xs text-zinc-400">Get in touch</div>
-                        </div>
-                        <i class="fas fa-chevron-right ml-auto text-zinc-500 group-hover:text-white transition-colors"></i>
-                    </a>
-                </div>
+            <div class="overflow-y-auto h-full">
+                <!-- Mobile Navigation Links -->
+                <a href="#home" class="mobile-link" onclick="closeMobileMenu()">Home</a>
+                <a href="#about" class="mobile-link" onclick="closeMobileMenu()">About</a>
+                <a href="#services" class="mobile-link" onclick="closeMobileMenu()">Services</a>
+                <a href="#tech-stack" class="mobile-link" onclick="closeMobileMenu()">Tech Stack</a>
+                <a href="#projects" class="mobile-link" onclick="closeMobileMenu()">Projects</a>
+                <a href="#testimonials" class="mobile-link" onclick="closeMobileMenu()">Clients</a>
+                <a href="#contact" class="mobile-link" onclick="closeMobileMenu()">Contact</a>
+                <a href="#dashboard" class="mobile-link" onclick="openDashboard(); closeMobileMenu()">Profile Dashboard</a>
 
-                <!-- Mobile Auth Section -->
-                <div class="px-4 mt-8">
-                    <div id="mobileAuthButtons" class="space-y-3">
+                <!-- Mobile Account Section -->
+                <div class="p-4 border-t border-zinc-700">
+                    <!-- Logged OUT -->
+                    <div id="mobileAuth">
                         <button onclick="openAuthModal('login'); closeMobileMenu()" 
-                                class="w-full mobile-auth-btn login-btn group">
-                            <i class="fas fa-sign-in-alt mr-3"></i>
-                            <span>Login to Account</span>
-                            <div class="absolute right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <i class="fas fa-arrow-right"></i>
-                            </div>
+                                class="w-full mb-2 px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 transition-colors">
+                            Login
                         </button>
-                        
                         <button onclick="openAuthModal('register'); closeMobileMenu()" 
-                                class="w-full mobile-auth-btn register-btn group">
-                            <i class="fas fa-user-plus mr-3"></i>
-                            <span>Create Account</span>
-                            <div class="absolute right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <i class="fas fa-arrow-right"></i>
-                            </div>
+                                class="w-full px-4 py-2 rounded-lg border border-purple-500 text-purple-400 hover:bg-purple-500/10 transition-colors">
+                            Register
                         </button>
                     </div>
 
-                    <!-- Mobile User Profile -->
-                    <div id="mobileUserProfile" class="hidden space-y-4 mt-6">
-                        <div class="p-4 glass rounded-xl">
-                            <div class="flex items-center gap-3 mb-4">
-                                <div id="mobileUserAvatar" 
-                                     class="w-14 h-14 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full flex items-center justify-center text-lg font-bold shadow-lg">
-                                </div>
-                                <div class="flex-1">
-                                    <div id="mobileUserName" class="font-bold"></div>
-                                    <div id="mobileUserEmail" class="text-sm text-zinc-400 truncate"></div>
-                                    <div id="mobileGreeting" class="greeting-message text-xs mt-1"></div>
-                                </div>
+                    <!-- Logged IN -->
+                    <div id="mobileUser" class="hidden">
+                        <div class="flex items-center gap-3 mb-4 p-3 bg-zinc-800/50 rounded-lg">
+                            <div id="mobileUserAvatar" class="user-avatar">
+                                M
                             </div>
-                            
-                            <div class="grid grid-cols-2 gap-3">
-                                <button onclick="openDashboard(); closeMobileMenu()" 
-                                        class="mobile-profile-btn group">
-                                    <i class="fas fa-tachometer-alt"></i>
-                                    <span>Dashboard</span>
-                                </button>
-                                
-                                <button onclick="editProfile(); closeMobileMenu()" 
-                                        class="mobile-profile-btn group">
-                                    <i class="fas fa-user-cog"></i>
-                                    <span>Profile</span>
-                                </button>
-                                
-                                <button onclick="openMessages(); closeMobileMenu()" 
-                                        class="mobile-profile-btn group">
-                                    <i class="fas fa-envelope"></i>
-                                    <span>Messages</span>
-                                </button>
-                                
-                                <button onclick="logout(); closeMobileMenu()" 
-                                        class="mobile-profile-btn logout-btn group">
-                                    <i class="fas fa-sign-out-alt"></i>
-                                    <span>Logout</span>
-                                </button>
+                            <div>
+                                <p id="mobileUserName" class="font-semibold"></p>
+                                <p id="mobileUserEmail" class="text-xs text-zinc-400"></p>
                             </div>
                         </div>
+                        <button onclick="logout(); closeMobileMenu()" 
+                                class="w-full px-4 py-2 rounded-lg bg-red-500 hover:bg-red-600 transition-colors">
+                            Logout
+                        </button>
                     </div>
-                </div>
-
-                <!-- Social Links in Mobile Menu -->
-                <div class="px-4 mt-8">
-                    <div class="text-sm text-zinc-400 mb-3 px-4">Connect with me</div>
-                    <div class="flex gap-3 px-4">
-                        <a href="https://www.facebook.com/profile.php?id=61568151542471" target="_blank" 
-                           class="social-icon-btn facebook group">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/mandil-dissanayake-47bb953a1/" target="_blank" 
-                           class="social-icon-btn linkedin group">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a href="https://www.instagram.com/mandil1211/" target="_blank" 
-                           class="social-icon-btn instagram group">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="https://github.com/mandil11" target="_blank" 
-                           class="social-icon-btn github group">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="https://wa.me/+94750700961" target="_blank" 
-                           class="social-icon-btn whatsapp group">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mobile Menu Footer -->
-            <div class="p-4 border-t border-zinc-700/50">
-                <div class="text-center text-sm text-zinc-500">
-                    © 2024 Mandil Dissanayake. All rights reserved.
                 </div>
             </div>
         </div>
-    </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
 
     <!-- Floating Contact Button -->
     <button onclick="scrollToContact()" class="fixed bottom-8 right-8 z-50 group bg-gradient-to-r from-purple-600 to-cyan-600 p-4 rounded-full shadow-lg shadow-purple-500/50 hover:shadow-xl hover:shadow-purple-500/75 transition-all duration-300 animate-pulse-slow">
@@ -2689,24 +2252,18 @@
             
             // Update desktop UI
             document.getElementById('authButtons').style.display = 'none';
-            document.getElementById('userProfile').style.display = 'flex';
+            document.getElementById('userBox').style.display = 'flex';
             document.getElementById('userAvatar').textContent = initials;
             document.getElementById('userName').textContent = displayName;
-            document.getElementById('menuUserAvatar').textContent = initials;
-            document.getElementById('menuUserName').textContent = displayName;
-            document.getElementById('menuUserEmail').textContent = user.email;
-            document.getElementById('menuGreeting').textContent = greeting;
             
             // Update mobile UI
-            document.getElementById('mobileAuthButtons').style.display = 'none';
-            document.getElementById('mobileUserProfile').style.display = 'block';
+            document.getElementById('mobileAuth').style.display = 'none';
+            document.getElementById('mobileUser').style.display = 'block';
             document.getElementById('mobileUserAvatar').textContent = initials;
             document.getElementById('mobileUserName').textContent = displayName;
             document.getElementById('mobileUserEmail').textContent = user.email;
-            document.getElementById('mobileGreeting').textContent = greeting;
             
             // Update dashboard
-            document.getElementById('dashboardUserName').textContent = displayName;
             document.getElementById('dashboardFullName').textContent = displayName;
             document.getElementById('dashboardEmail').textContent = user.email;
             document.getElementById('dashboardUserAvatar').textContent = initials;
@@ -2731,11 +2288,6 @@
                 hour12: true 
             }) + ' Today';
             
-            // Update unread messages count
-            const unreadCount = Math.floor(Math.random() * 5);
-            document.getElementById('unreadMessagesCount').textContent = `${unreadCount} unread messages`;
-            document.getElementById('unreadCount').textContent = `${unreadCount} unread`;
-            
             // Store last login in localStorage
             localStorage.setItem('lastLogin', lastLogin.toISOString());
         }
@@ -2743,11 +2295,11 @@
         function updateUIForGuest() {
             // Update desktop UI
             document.getElementById('authButtons').style.display = 'flex';
-            document.getElementById('userProfile').style.display = 'none';
+            document.getElementById('userBox').style.display = 'none';
             
             // Update mobile UI
-            document.getElementById('mobileAuthButtons').style.display = 'block';
-            document.getElementById('mobileUserProfile').style.display = 'none';
+            document.getElementById('mobileAuth').style.display = 'block';
+            document.getElementById('mobileUser').style.display = 'none';
             
             // Hide dashboard and show main content
             document.getElementById('dashboard').classList.remove('active');
@@ -2759,7 +2311,7 @@
         // ====================
         function updateActiveNav() {
             const sections = document.querySelectorAll('section[id]');
-            const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+            const navLinks = document.querySelectorAll('.nav-link');
             
             let currentSection = '';
             
@@ -2990,10 +2542,42 @@
             scrollToTop();
         }
 
-        function toggleUserMenu() {
+        // ====================
+        // Mobile Menu Functions
+        // ====================
+        function toggleMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            const overlay = document.getElementById('mobileOverlay');
+            mobileNav.classList.toggle('open');
+            overlay.classList.toggle('open');
+            document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : 'auto';
+        }
+
+        function closeMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            const overlay = document.getElementById('mobileOverlay');
+            mobileNav.classList.remove('open');
+            overlay.classList.remove('open');
+            document.body.style.overflow = 'auto';
+        }
+
+        // ====================
+        // Account Dropdown Functions
+        // ====================
+        function toggleAccountMenu() {
             const menu = document.getElementById('userMenu');
             menu.classList.toggle('hidden');
         }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            const userBox = document.getElementById('userBox');
+            const userMenu = document.getElementById('userMenu');
+            
+            if (userBox && userMenu && !userBox.contains(e.target)) {
+                userMenu.classList.add('hidden');
+            }
+        });
 
         // ====================
         // Profile Management Functions
@@ -3007,7 +2591,6 @@
             }
             
             showNotification('Profile editor coming soon!', 'info');
-            // You can implement a modal for profile editing here
         }
 
         function changePassword() {
@@ -3031,7 +2614,6 @@
 
         function notificationSettings() {
             showNotification('Notification settings panel opening...', 'info');
-            // Implement notification settings
         }
 
         function downloadData() {
@@ -3129,7 +2711,7 @@
             }
 
             // Your WhatsApp number
-            const whatsappNumber = '94750700961'; // Your actual WhatsApp number
+            const whatsappNumber = '94750700961';
             
             const sendBtn = document.getElementById('sendWhatsAppBtn');
             const originalHTML = sendBtn.innerHTML;
@@ -3187,29 +2769,6 @@
         }
 
         // ====================
-        // Navigation Functions
-        // ====================
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const closeMenuBtn = document.getElementById('closeMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const navContainer = document.querySelector('.nav-container');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.add('open');
-            document.body.style.overflow = 'hidden';
-        });
-
-        closeMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.remove('open');
-            document.body.style.overflow = 'auto';
-        });
-
-        function closeMobileMenu() {
-            mobileMenu.classList.remove('open');
-            document.body.style.overflow = 'auto';
-        }
-
-        // ====================
         // Scroll Progress
         // ====================
         window.addEventListener('scroll', () => {
@@ -3219,26 +2778,8 @@
             const scrollPercent = (scrollTop / docHeight) * 100;
             document.getElementById('progressBar').style.width = scrollPercent + '%';
             
-            // Navbar effect
-            if (window.scrollY > 50) {
-                navContainer.classList.add('scrolled');
-            } else {
-                navContainer.classList.remove('scrolled');
-            }
-            
             // Update active navigation
             updateActiveNav();
-            
-            // Hide scroll indicator after scrolling a bit
-            const scrollIndicator = document.querySelector('.scroll-indicator');
-            if (scrollIndicator) {
-                if (window.scrollY > 100) {
-                    scrollIndicator.style.opacity = '0';
-                    scrollIndicator.style.transition = 'opacity 0.5s ease';
-                } else {
-                    scrollIndicator.style.opacity = '1';
-                }
-            }
         });
 
         // ====================
@@ -3428,7 +2969,7 @@
             switchAuthTab('login');
             
             // Add click handlers for nav links
-            document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
+            document.querySelectorAll('.nav-link, .mobile-link').forEach(link => {
                 link.addEventListener('click', function(e) {
                     const href = this.getAttribute('href');
                     if (href.startsWith('#')) {
@@ -3445,22 +2986,22 @@
                 });
             });
             
-            // Close mobile menu when clicking outside
+            // Close dropdowns when clicking outside
             document.addEventListener('click', (e) => {
-                const mobileMenu = document.getElementById('mobileMenu');
-                const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+                // Close mobile menu when clicking outside
+                const mobileNav = document.getElementById('mobileNav');
+                const menuBtn = document.getElementById('menuBtn');
                 
-                if (mobileMenu.classList.contains('open') && 
-                    !mobileMenu.contains(e.target) && 
-                    !mobileMenuBtn.contains(e.target)) {
+                if (mobileNav.classList.contains('open') && 
+                    !mobileNav.contains(e.target) && 
+                    !menuBtn.contains(e.target)) {
                     closeMobileMenu();
                 }
                 
                 // Close user menu when clicking outside
+                const userBox = document.getElementById('userBox');
                 const userMenu = document.getElementById('userMenu');
-                const userProfile = document.getElementById('userProfile');
-                if (userMenu && !userMenu.classList.contains('hidden') && 
-                    !userProfile.contains(e.target)) {
+                if (userBox && userMenu && !userBox.contains(e.target)) {
                     userMenu.classList.add('hidden');
                 }
             });
