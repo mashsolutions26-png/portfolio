@@ -9,8 +9,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     
@@ -247,6 +245,27 @@
             from { transform: translateY(100%); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
+
+        @supports (-webkit-touch-callout: none) {
+    .mobile-nav {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+}
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+button, a {
+    touch-action: manipulation;
+}
+.mobile-nav {
+    transform: translate3d(100%, 0, 0);
+}
+
+.mobile-nav.open {
+    transform: translate3d(0, 0, 0);
+}
+
         
         .animate-fadeIn {
             animation: fadeIn 1s ease-out;
@@ -1019,6 +1038,70 @@
                 display: flex !important;
             }
         }
+
+        .mobile-nav {
+    will-change: transform;
+    transform: translateX(100%);
+}
+
+.mobile-nav.open {
+    transform: translateX(0);
+}
+
+.mobile-overlay {
+    will-change: opacity;
+}
+
+
+        .mobile-overlay {
+    pointer-events: none;
+}
+
+.mobile-overlay.open {
+    pointer-events: auto;
+}
+
+        .mobile-nav {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+        .mobile-link,
+#menuBtn,
+#closeMobileMenuBtn {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+    /* Desktop / Laptop – hide hamburger */
+    #menuBtn {
+        display: none;
+    }
+
+    /* Mobile / Tablet – show hamburger */
+    @media (max-width: 768px) {
+        #menuBtn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .desktop-nav {
+            display: none;
+        }
+
+        .mobile-nav {
+            display: block;
+        }
+    }
+
+    /* Safety – desktop වල mobile nav completely disable */
+    @media (min-width: 769px) {
+        .mobile-nav,
+        .mobile-overlay {
+            display: none !important;
+        }
+    }
 
         .stars {
             margin-top: 12px;
