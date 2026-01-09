@@ -508,7 +508,7 @@
             color: white;
         }
         
-        /* Mobile Menu Button - UPDATED */
+/* Mobile Menu Button - UPDATED */
         #menuBtn {
             width: 40px;
             height: 40px;
@@ -521,11 +521,18 @@
             border-radius: 8px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             transition: all 0.3s ease;
+            position: relative;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
         
         #menuBtn:hover {
             background: rgba(139, 92, 246, 0.2);
             border-color: rgba(139, 92, 246, 0.5);
+        }
+        
+        #menuBtn:active {
+            transform: scale(0.95);
         }
         
         /* Mobile Navigation */
