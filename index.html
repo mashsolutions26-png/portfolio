@@ -1196,6 +1196,47 @@ button, a {
   margin-bottom: 14px;
 }
 
+.mobile-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 90; /* LOWER than menu */
+}
+
+.mobile-overlay.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100dvh;
+    width: 85vw;
+    max-width: 360px;
+    background: rgba(15,23,42,0.98);
+    z-index: 100; /* MUST be higher */
+    transform: translate3d(100%,0,0);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.mobile-nav.open {
+    transform: translate3d(0,0,0);
+}
+.mobile-nav a,
+.mobile-nav button {
+    pointer-events: auto;
+    touch-action: manipulation;
+}
+
+
     </style>
 </head>
 <body>
@@ -2714,6 +2755,26 @@ button, a {
                 localStorage.removeItem('user');
             }
         });
+
+        const menuBtn = document.getElementById("menuBtn");
+const mobileNav = document.getElementById("mobileNav");
+const overlay = document.getElementById("mobileOverlay");
+const closeBtn = document.getElementById("closeMobileMenuBtn");
+
+menuBtn.onclick = () => {
+    mobileNav.classList.add("open");
+    overlay.classList.add("open");
+    document.body.style.overflow = "hidden";
+};
+
+function closeMenu() {
+    mobileNav.classList.remove("open");
+    overlay.classList.remove("open");
+    document.body.style.overflow = "";
+}
+
+overlay.onclick = closeMenu;
+closeBtn.onclick = closeMenu;
 
         // ====================
         // UI Update Functions
