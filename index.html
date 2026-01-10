@@ -258,13 +258,6 @@
 button, a {
     touch-action: manipulation;
 }
-.mobile-nav {
-    transform: translate3d(100%, 0, 0);
-}
-
-.mobile-nav.open {
-    transform: translate3d(0, 0, 0);
-}
 
         
         .animate-fadeIn {
@@ -456,14 +449,23 @@ button, a {
         .mobile-link {
             display: block;
             padding: 14px 20px;
-            border-bottom: 1px solid #27272a;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             color: #a1a1aa;
+            text-decoration: none;
             transition: all 0.3s ease;
+            cursor: pointer;
+            pointer-events: auto;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
         
         .mobile-link:hover {
             background: rgba(255, 255, 255, 0.05);
             color: white;
+        }
+        
+        .mobile-link:active {
+            background: rgba(139, 92, 246, 0.1);
         }
         
         /* Main Navigation Bar */
@@ -527,11 +529,12 @@ button, a {
             color: white;
         }
         
-/* Mobile Menu Button - UPDATED */
+/* Mobile Menu Button - NEW MODERN DESIGN */
         #menuBtn {
             width: 40px;
             height: 40px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             cursor: pointer;
@@ -546,6 +549,28 @@ button, a {
             user-select: none;
         }
         
+        #menuBtn span {
+            width: 20px;
+            height: 2px;
+            background: white;
+            margin: 2px 0;
+            transition: all 0.3s ease;
+            transform-origin: center;
+            border-radius: 1px;
+        }
+        
+        #menuBtn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        #menuBtn.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        #menuBtn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+        
         #menuBtn:hover {
             background: rgba(139, 92, 246, 0.4);
             border-color: rgba(139, 92, 246, 0.7);
@@ -556,18 +581,14 @@ button, a {
             transform: scale(0.95);
         }
         
-        #menuBtn i {
-            pointer-events: none;
-        }
-        
         /* Mobile Navigation */
         .mobile-nav {
             position: fixed;
             top: 0;
             right: 0;
             bottom: 0;
-            width: 280px;
-            max-width: 85vw;
+            width: 85vw;
+            max-width: 360px;
             background: rgba(15, 23, 42, 0.98);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -578,6 +599,7 @@ button, a {
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
             box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+            pointer-events: auto;
         }
         
         .mobile-nav.open {
@@ -594,23 +616,23 @@ button, a {
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        /* Mobile Menu Overlay - UPDATED */
+        /* Mobile Menu Overlay */
         .mobile-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            inset: 0;
             background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(2px);
             z-index: 99;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;
+            pointer-events: none;
         }
         
         .mobile-overlay.open {
             opacity: 1;
             visibility: visible;
+            pointer-events: auto;
         }
         
         /* Status Indicators */
@@ -906,32 +928,25 @@ button, a {
             text-align: center;
         }
         
-        /* Login/Register Buttons */
-        .auth-buttons-container {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-        
+        /* Login/Register Buttons - UPDATED */
         .login-btn, .register-btn {
-            padding: 10px 24px;
-            border-radius: 12px;
+            padding: 8px 20px;
+            border-radius: 8px;
             font-weight: 600;
             transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            cursor: pointer;
+            border: none;
+            font-size: 14px;
         }
         
         .login-btn {
             background: linear-gradient(135deg, #8b5cf6, #6d28d9);
-            border: none;
             color: white;
         }
         
         .login-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
         }
         
         .register-btn {
@@ -956,6 +971,8 @@ button, a {
             background: linear-gradient(135deg, #06b6d4, #8b5cf6);
             text-decoration: none;
             transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
         }
 
         .download-cv-btn:hover {
@@ -981,6 +998,7 @@ button, a {
             font-weight: 600;
             transition: all 0.3s ease;
             border: 2px solid transparent;
+            cursor: pointer;
         }
         
         .social-btn.google {
@@ -1038,40 +1056,6 @@ button, a {
                 display: flex !important;
             }
         }
-
-        .mobile-nav {
-    will-change: transform;
-    transform: translateX(100%);
-}
-
-.mobile-nav.open {
-    transform: translateX(0);
-}
-
-.mobile-overlay {
-    will-change: opacity;
-}
-
-
-        .mobile-overlay {
-    pointer-events: none;
-}
-
-.mobile-overlay.open {
-    pointer-events: auto;
-}
-
-        .mobile-nav {
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-}
-
-        .mobile-link,
-#menuBtn,
-#closeMobileMenuBtn {
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-}
 
     /* Desktop / Laptop – hide hamburger */
     #menuBtn {
@@ -1196,46 +1180,177 @@ button, a {
   margin-bottom: 14px;
 }
 
-.mobile-overlay {
+/* Action Button Styles - UPDATED */
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+}
+
+.primary-btn {
+    background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+    color: white;
+}
+
+.primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+}
+
+.secondary-btn {
+    background: transparent;
+    border: 2px solid #8b5cf6;
+    color: #8b5cf6;
+}
+
+.secondary-btn:hover {
+    background: rgba(139, 92, 246, 0.1);
+    transform: translateY(-2px);
+}
+
+.contact-btn {
+    background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+    color: white;
+    padding: 14px 32px;
+    border-radius: 999px;
+}
+
+.contact-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(139, 92, 246, 0.45);
+}
+
+/* Modal Buttons */
+.modal-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    margin-top: 16px;
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+    color: white;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+}
+
+.whatsapp-btn {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+}
+
+.whatsapp-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+}
+
+/* Dashboard Buttons */
+.dashboard-btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    font-size: 14px;
+}
+
+.edit-btn {
+    background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+    color: white;
+}
+
+.edit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.3);
+}
+
+.delete-btn {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+}
+
+.delete-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+}
+
+/* Mobile Menu Close Button */
+.close-menu-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(139, 92, 246, 0.2);
+    border: 1px solid rgba(139, 92, 246, 0.4);
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.close-menu-btn:hover {
+    background: rgba(139, 92, 246, 0.4);
+    transform: scale(1.1);
+}
+
+/* Floating Button */
+.floating-btn {
     position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.6);
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    z-index: 90; /* LOWER than menu */
+    bottom: 24px;
+    right: 24px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+    border: none;
+    z-index: 50;
 }
 
-.mobile-overlay.open {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-}
-.mobile-nav {
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100dvh;
-    width: 85vw;
-    max-width: 360px;
-    background: rgba(15,23,42,0.98);
-    z-index: 100; /* MUST be higher */
-    transform: translate3d(100%,0,0);
-    transition: transform 0.3s ease;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+.floating-btn:hover {
+    transform: translateY(-4px) scale(1.1);
+    box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6);
 }
 
-.mobile-nav.open {
-    transform: translate3d(0,0,0);
-}
-.mobile-nav a,
-.mobile-nav button {
-    pointer-events: auto;
-    touch-action: manipulation;
+/* Back to Top Button */
+.back-to-top {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
 }
 
+.back-to-top:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
 
     </style>
 </head>
@@ -1282,8 +1397,8 @@ button, a {
         <div class="auth-modal-content">
             <div class="flex justify-between items-center mb-8">
                 <h2 class="text-2xl font-bold gradient-text">Welcome</h2>
-                <button onclick="closeAuthModal()" class="text-zinc-400 hover:text-white transition-colors">
-                    <i class="fas fa-times text-xl"></i>
+                <button onclick="closeAuthModal()" class="close-menu-btn">
+                    <i class="fas fa-times"></i>
                 </button>
             </div>
             
@@ -1327,8 +1442,7 @@ button, a {
                         </button>
                     </div>
                     
-                    <button type="submit" id="loginBtn" 
-                            class="w-full bg-gradient-to-r from-purple-600 to-cyan-600 px-6 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 mt-4">
+                    <button type="submit" id="loginBtn" class="modal-btn submit-btn">
                         <i class="fas fa-sign-in-alt mr-2"></i>
                         Sign In
                     </button>
@@ -1372,8 +1486,7 @@ button, a {
                         </button>
                     </div>
                     
-                    <button type="submit" id="registerBtn" 
-                            class="w-full bg-gradient-to-r from-purple-600 to-cyan-600 px-6 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 mt-4">
+                    <button type="submit" id="registerBtn" class="modal-btn submit-btn">
                         <i class="fas fa-user-plus mr-2"></i>
                         Create Account
                     </button>
@@ -1417,12 +1530,10 @@ button, a {
             <div class="hidden md:flex items-center gap-4">
                 <!-- Logged OUT -->
                 <div id="authButtons" class="flex gap-3">
-                    <button onclick="openAuthModal('login')" 
-                            class="px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 transition-colors">
+                    <button onclick="openAuthModal('login')" class="login-btn">
                         Login
                     </button>
-                    <button onclick="openAuthModal('register')" 
-                            class="px-4 py-2 rounded-lg border border-purple-500 text-purple-400 hover:bg-purple-500/10 transition-colors">
+                    <button onclick="openAuthModal('register')" class="register-btn">
                         Register
                     </button>
                 </div>
@@ -1452,7 +1563,7 @@ button, a {
                             Profile Settings
                         </a>
                         <div class="border-t border-zinc-700 my-1"></div>
-                        <button onclick="logout()" class="logout flex items-center gap-2">
+                        <button onclick="logout()" class="logout flex items-center gap-2 dashboard-btn delete-btn">
                             <i class="fas fa-sign-out-alt w-4"></i>
                             Logout
                         </button>
@@ -1460,9 +1571,11 @@ button, a {
                 </div>
             </div>
 
-            <!-- Mobile Menu Button -->
-            <button id="menuBtn" class="md:hidden text-2xl">
-                <i class="fas fa-bars"></i>
+            <!-- Mobile Menu Button (NEW Modern Hamburger) -->
+            <button id="menuBtn" class="md:hidden">
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
         </div>
 
@@ -1479,7 +1592,7 @@ button, a {
                             Mandil D
                         </div>
                     </a>
-                    <button class="text-2xl" id="closeMobileMenuBtn">
+                    <button class="close-menu-btn" id="closeMobileMenuBtn">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
@@ -1516,10 +1629,10 @@ button, a {
                 <div class="p-4 border-t border-zinc-700 mt-auto">
                     <!-- Logged OUT -->
                     <div id="mobileAuth">
-                        <button class="w-full mb-2 px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 transition-colors" onclick="openAuthModal('login')">
+                        <button class="w-full mb-2 login-btn" onclick="openAuthModal('login')">
                             Login
                         </button>
-                        <button class="w-full px-4 py-2 rounded-lg border border-purple-500 text-purple-400 hover:bg-purple-500/10 transition-colors" onclick="openAuthModal('register')">
+                        <button class="w-full register-btn" onclick="openAuthModal('register')">
                             Register
                         </button>
                     </div>
@@ -1538,7 +1651,7 @@ button, a {
                         <a href="#home" class="w-full mb-2 px-4 py-2 rounded-lg bg-zinc-800 text-center block" onclick="goToHome()">
                             Home
                         </a>
-                        <button class="w-full px-4 py-2 rounded-lg bg-red-500 hover:bg-red-600 transition-colors" onclick="logout()">
+                        <button class="w-full dashboard-btn delete-btn" onclick="logout()">
                             Logout
                         </button>
                     </div>
@@ -1551,11 +1664,8 @@ button, a {
     <div class="mobile-overlay" id="mobileOverlay"></div>
 
     <!-- Floating Contact Button -->
-    <button onclick="scrollToContact()" class="fixed bottom-8 right-8 z-50 group bg-gradient-to-r from-purple-600 to-cyan-600 p-4 rounded-full shadow-lg shadow-purple-500/50 hover:shadow-xl hover:shadow-purple-500/75 transition-all duration-300 animate-pulse-slow">
-        <i class="fas fa-envelope text-white text-xl"></i>
-        <span class="absolute right-full mr-4 top-1/2 transform -translate-y-1/2 bg-zinc-900 text-white px-3 py-2 rounded-lg text-sm font-semibold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            Get in touch!
-        </span>
+    <button onclick="scrollToContact()" class="floating-btn">
+        <i class="fas fa-envelope"></i>
     </button>
 
     <!-- Main Content -->
@@ -1591,11 +1701,11 @@ button, a {
                 </p>
                 
                 <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center pt-4">
-                    <button onclick="scrollToProjects()" class="group bg-gradient-to-r from-purple-600 to-cyan-600 px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 flex items-center gap-2">
+                    <button onclick="scrollToProjects()" class="action-btn primary-btn">
                         View My Projects
                         <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                     </button>
-                    <button onclick="scrollToContact()" class="glass px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg hover:bg-white/20 transition-all duration-300">
+                    <button onclick="scrollToContact()" class="action-btn secondary-btn">
                         Contact Me
                     </button>
                 </div>
@@ -1793,7 +1903,7 @@ button, a {
                         <a href="CV.png" download="Mandil_Dissanayake_CV.png" class="download-cv-btn">
                             Download CV
                         </a>
-                        <button onclick="scrollToContact()" class="glass px-4 sm:px-6 py-3 rounded-lg font-semibold hover:bg-white/20 transition-all duration-300">
+                        <button onclick="scrollToContact()" class="action-btn secondary-btn">
                             Contact Me
                         </button>
                     </div>
@@ -2223,8 +2333,7 @@ button, a {
 
                 <!-- View More Button -->
                 <div class="text-center mt-12">
-                    <button onclick="loadMoreProjects()" 
-                           class="inline-flex items-center gap-3 px-8 py-3 bg-gradient-to-r from-purple-600 to-cyan-600 rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 group">
+                    <button onclick="loadMoreProjects()" class="action-btn primary-btn">
                         <i class="fas fa-eye"></i>
                         View More Projects
                         <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
@@ -2413,8 +2522,8 @@ button, a {
                         <label for="message" class="block text-sm font-medium text-zinc-300 mb-2">Message *</label>
                         <textarea id="message" rows="4" required class="w-full px-4 py-3 glass rounded-lg text-white focus:outline-none focus:border-purple-500 transition-all resize-none" placeholder="Tell me about your project..."></textarea>
                     </div>
-                    <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-purple-600 to-cyan-600 px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 flex items-center justify-center gap-2">
-                        <i class="fas fa-paper-plane"></i>
+                    <button type="submit" id="submitBtn" class="modal-btn submit-btn">
+                        <i class="fas fa-paper-plane mr-2"></i>
                         Send Message
                     </button>
                     <p class="text-zinc-500 text-xs sm:text-sm text-center">* Required fields</p>
@@ -2433,9 +2542,8 @@ button, a {
                     <p class="text-zinc-400 text-base sm:text-lg" id="dashboardGreeting"></p>
                 </div>
                 <div class="flex items-center gap-3">
-                    <button onclick="closeDashboard()" 
-                            class="px-4 sm:px-6 py-2 sm:py-3 glass rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 flex items-center gap-2 text-sm sm:text-base">
-                        <i class="fas fa-arrow-left"></i>
+                    <button onclick="closeDashboard()" class="action-btn secondary-btn">
+                        <i class="fas fa-arrow-left mr-2"></i>
                         Back to Site
                     </button>
                 </div>
@@ -2458,9 +2566,8 @@ button, a {
                                 <p class="text-zinc-400 mb-2 text-sm sm:text-base" id="dashboardEmail"></p>
                                 <div class="greeting-message mb-3 text-sm sm:text-base" id="userGreeting"></div>
                                 
-                                <button onclick="editProfile()" 
-                                        class="px-3 sm:px-4 py-2 bg-gradient-to-r from-purple-600 to-cyan-600 rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 flex items-center gap-2 mx-auto text-sm sm:text-base">
-                                    <i class="fas fa-edit"></i>
+                                <button onclick="editProfile()" class="dashboard-btn edit-btn">
+                                    <i class="fas fa-edit mr-2"></i>
                                     Edit Profile
                                 </button>
                             </div>
@@ -2509,25 +2616,21 @@ button, a {
                         <div class="glass rounded-xl p-3 sm:p-4">
                             <h4 class="font-bold mb-2 sm:mb-3 text-sm sm:text-base">Quick Actions</h4>
                             <div class="grid grid-cols-2 gap-2 sm:gap-3">
-                                <button onclick="changePassword()" 
-                                        class="py-2 rounded-lg bg-gradient-to-r from-purple-500/20 to-transparent border border-purple-500/30 hover:bg-purple-500/30 transition-colors flex items-center justify-center gap-1 sm:gap-2">
-                                    <i class="fas fa-key text-xs sm:text-sm"></i>
-                                    <span class="text-xs sm:text-sm">Password</span>
+                                <button onclick="changePassword()" class="dashboard-btn edit-btn">
+                                    <i class="fas fa-key mr-1"></i>
+                                    Password
                                 </button>
-                                <button onclick="notificationSettings()" 
-                                        class="py-2 rounded-lg bg-gradient-to-r from-cyan-500/20 to-transparent border border-cyan-500/30 hover:bg-cyan-500/30 transition-colors flex items-center justify-center gap-1 sm:gap-2">
-                                    <i class="fas fa-bell text-xs sm:text-sm"></i>
-                                    <span class="text-xs sm:text-sm">Notifications</span>
+                                <button onclick="notificationSettings()" class="dashboard-btn edit-btn">
+                                    <i class="fas fa-bell mr-1"></i>
+                                    Notifications
                                 </button>
-                                <button onclick="downloadData()" 
-                                        class="py-2 rounded-lg bg-gradient-to-r from-purple-500/20 to-transparent border border-purple-500/30 hover:bg-purple-500/30 transition-colors flex items-center justify-center gap-1 sm:gap-2">
-                                    <i class="fas fa-download text-xs sm:text-sm"></i>
-                                    <span class="text-xs sm:text-sm">Export Data</span>
+                                <button onclick="downloadData()" class="dashboard-btn edit-btn">
+                                    <i class="fas fa-download mr-1"></i>
+                                    Export Data
                                 </button>
-                                <button onclick="deleteAccount()" 
-                                        class="py-2 rounded-lg bg-gradient-to-r from-red-500/20 to-transparent border border-red-500/30 hover:bg-red-500/30 transition-colors flex items-center justify-center gap-1 sm:gap-2">
-                                    <i class="fas fa-trash-alt text-xs sm:text-sm"></i>
-                                    <span class="text-xs sm:text-sm">Delete Account</span>
+                                <button onclick="deleteAccount()" class="dashboard-btn delete-btn">
+                                    <i class="fas fa-trash-alt mr-1"></i>
+                                    Delete Account
                                 </button>
                             </div>
                         </div>
@@ -2560,9 +2663,8 @@ button, a {
                                 <textarea id="adminMessage" rows="3" 
                                           class="w-full px-3 sm:px-4 py-2 sm:py-3 glass rounded-lg text-white focus:outline-none focus:border-green-500 transition-all resize-none text-sm sm:text-base"
                                           placeholder="Type your message here..."></textarea>
-                                <button onclick="sendWhatsAppMessage()" id="sendWhatsAppBtn"
-                                        class="w-full bg-gradient-to-r from-green-600 to-emerald-600 px-4 sm:px-8 py-2 sm:py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-green-500/50 transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-sm sm:text-base">
-                                    <i class="fab fa-whatsapp"></i>
+                                <button onclick="sendWhatsAppMessage()" id="sendWhatsAppBtn" class="modal-btn whatsapp-btn">
+                                    <i class="fab fa-whatsapp mr-2"></i>
                                     Send via WhatsApp
                                 </button>
                             </div>
@@ -2649,9 +2751,9 @@ button, a {
                         <i class="fab fa-whatsapp text-lg sm:text-xl"></i>
                     </a>
                 </div>
-                <button onclick="scrollToTop()" class="text-zinc-400 hover:text-white transition-colors flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+                <button onclick="scrollToTop()" class="back-to-top">
                     Back to top
-                    <i class="fas fa-arrow-up"></i>
+                    <i class="fas fa-arrow-up ml-1"></i>
                 </button>
             </div>
         </div>
@@ -2756,25 +2858,70 @@ button, a {
             }
         });
 
-        const menuBtn = document.getElementById("menuBtn");
-const mobileNav = document.getElementById("mobileNav");
-const overlay = document.getElementById("mobileOverlay");
-const closeBtn = document.getElementById("closeMobileMenuBtn");
+        // ====================
+        // Modern Mobile Menu Toggle
+        // ====================
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        const overlay = document.getElementById('mobileOverlay');
+        const closeBtn = document.getElementById('closeMobileMenuBtn');
 
-menuBtn.onclick = () => {
-    mobileNav.classList.add("open");
-    overlay.classList.add("open");
-    document.body.style.overflow = "hidden";
-};
+        function toggleMobileMenu() {
+            const isOpen = mobileNav.classList.contains('open');
+            
+            if (!isOpen) {
+                // Open menu
+                mobileNav.classList.add('open');
+                overlay.classList.add('open');
+                menuBtn.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            } else {
+                // Close menu
+                closeMobileMenu();
+            }
+        }
 
-function closeMenu() {
-    mobileNav.classList.remove("open");
-    overlay.classList.remove("open");
-    document.body.style.overflow = "";
-}
+        function closeMobileMenu() {
+            mobileNav.classList.remove('open');
+            overlay.classList.remove('open');
+            menuBtn.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
 
-overlay.onclick = closeMenu;
-closeBtn.onclick = closeMenu;
+        // Event Listeners
+        menuBtn.addEventListener('click', toggleMobileMenu);
+        closeBtn.addEventListener('click', closeMobileMenu);
+        overlay.addEventListener('click', closeMobileMenu);
+
+        // Close menu when clicking on a mobile link
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                // Prevent default only if it's a hash link
+                const href = link.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+                
+                // Close menu after short delay for smooth animation
+                setTimeout(closeMobileMenu, 300);
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const mobileNav = document.getElementById('mobileNav');
+            const menuBtn = document.getElementById('menuBtn');
+            
+            if (mobileNav && mobileNav.classList.contains('open') && 
+                !mobileNav.contains(e.target) && 
+                menuBtn && !menuBtn.contains(e.target)) {
+                closeMobileMenu();
+            }
+        });
 
         // ====================
         // UI Update Functions
@@ -3080,35 +3227,6 @@ closeBtn.onclick = closeMenu;
 
         function closeDashboard() {
             goToHome();
-        }
-
-        // ====================
-        // Mobile Menu Functions - UPDATED
-        // ====================
-        function toggleMobileMenu() {
-            const mobileNav = document.getElementById('mobileNav');
-            const overlay = document.getElementById('mobileOverlay');
-            
-            if (mobileNav.classList.contains('open')) {
-                // Close menu
-                mobileNav.classList.remove('open');
-                overlay.classList.remove('open');
-                document.body.style.overflow = 'auto';
-            } else {
-                // Open menu
-                mobileNav.classList.add('open');
-                overlay.classList.add('open');
-                document.body.style.overflow = 'hidden';
-            }
-        }
-
-        function closeMobileMenu() {
-            const mobileNav = document.getElementById('mobileNav');
-            const overlay = document.getElementById('mobileOverlay');
-            
-            mobileNav.classList.remove('open');
-            overlay.classList.remove('open');
-            document.body.style.overflow = 'auto';
         }
 
         // ====================
@@ -3495,93 +3613,10 @@ closeBtn.onclick = closeMenu;
         }
 
         // ====================
-        // Initialize Mobile Menu Event Listeners
-        // ====================
-        function initMobileMenu() {
-            const menuBtn = document.getElementById('menuBtn');
-            const closeBtn = document.getElementById('closeMobileMenuBtn');
-            const overlay = document.getElementById('mobileOverlay');
-            const mobileLinks = document.querySelectorAll('.mobile-link');
-            
-            if (menuBtn) {
-                menuBtn.addEventListener('click', toggleMobileMenu);
-                menuBtn.addEventListener('touchstart', function(e) {
-                    e.preventDefault();
-                    toggleMobileMenu();
-                });
-            }
-            
-            if (closeBtn) {
-                closeBtn.addEventListener('click', closeMobileMenu);
-                closeBtn.addEventListener('touchstart', function(e) {
-                    e.preventDefault();
-                    closeMobileMenu();
-                });
-            }
-            
-            if (overlay) {
-                overlay.addEventListener('click', closeMobileMenu);
-                overlay.addEventListener('touchstart', function(e) {
-                    e.preventDefault();
-                    closeMobileMenu();
-                });
-            }
-            
-            // Add click handlers for mobile links
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    const href = this.getAttribute('href');
-                    if (href.startsWith('#')) {
-                        e.preventDefault();
-                        const target = document.querySelector(href);
-                        if (target) {
-                            target.scrollIntoView({ behavior: 'smooth' });
-                            if (href === '#dashboard') {
-                                openDashboard();
-                            }
-                            closeMobileMenu();
-                        }
-                    }
-                });
-                
-                // Touch support for mobile links
-                link.addEventListener('touchstart', function(e) {
-                    const href = this.getAttribute('href');
-                    if (href.startsWith('#')) {
-                        e.preventDefault();
-                        const target = document.querySelector(href);
-                        if (target) {
-                            target.scrollIntoView({ behavior: 'smooth' });
-                            if (href === '#dashboard') {
-                                openDashboard();
-                            }
-                            closeMobileMenu();
-                        }
-                    }
-                });
-            });
-            
-            // Add click handlers for mobile auth buttons
-            const mobileAuthButtons = document.querySelectorAll('#mobileAuth button');
-            mobileAuthButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    const text = this.textContent.trim();
-                    if (text === 'Login') {
-                        openAuthModal('login');
-                    } else if (text === 'Register') {
-                        openAuthModal('register');
-                    }
-                    closeMobileMenu();
-                });
-            });
-        }
-
-        // ====================
         // Initialize
         // ====================
         document.addEventListener('DOMContentLoaded', () => {
             initTypingEffect();
-            initMobileMenu();
             
             // Initialize active navigation
             updateActiveNav();
@@ -3635,25 +3670,10 @@ closeBtn.onclick = closeMenu;
                 });
             });
             
-            // Close dropdowns when clicking outside
-            document.addEventListener('click', (e) => {
-                // Close mobile menu when clicking outside
-                const mobileNav = document.getElementById('mobileNav');
-                const menuBtn = document.getElementById('menuBtn');
-                
-                if (mobileNav && mobileNav.classList.contains('open') && 
-                    !mobileNav.contains(e.target) && 
-                    menuBtn && !menuBtn.contains(e.target)) {
-                    closeMobileMenu();
-                }
-                
-                // Close user menu when clicking outside
-                const userBox = document.getElementById('userBox');
-                const userMenu = document.getElementById('userMenu');
-                if (userBox && userMenu && !userBox.contains(e.target)) {
-                    userMenu.classList.add('hidden');
-                }
-            });
+            // Initialize projects animation
+            setTimeout(() => {
+                animateProjects();
+            }, 1000);
         });
         
     </script>
