@@ -445,27 +445,81 @@ button, a {
             background: linear-gradient(to right, #8b5cf6, #06b6d4);
         }
         
-        /* Mobile links */
-        .mobile-link {
-            display: block;
-            padding: 14px 20px;
+        /* Mobile Navigation Styles */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: rgba(24, 24, 27, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-left: 1px solid rgba(139, 92, 246, 0.2);
+            z-index: 1000;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        
+        .mobile-nav.open {
+            right: 0;
+        }
+        
+        .mobile-nav-header {
+            padding: 20px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .mobile-link {
+            display: flex;
+            align-items: center;
+            padding: 16px 24px;
             color: #a1a1aa;
             text-decoration: none;
             transition: all 0.3s ease;
-            cursor: pointer;
-            pointer-events: auto;
-            -webkit-tap-highlight-color: transparent;
-            touch-action: manipulation;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
         
-        .mobile-link:hover {
-            background: rgba(255, 255, 255, 0.05);
+        .mobile-link:hover,
+        .mobile-link.active {
             color: white;
+            background: rgba(139, 92, 246, 0.1);
         }
         
-        .mobile-link:active {
-            background: rgba(139, 92, 246, 0.1);
+        .close-menu-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+        
+        .close-menu-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .menu-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+            display: none;
+        }
+        
+        .menu-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
         }
         
         /* Main Navigation Bar */
@@ -527,112 +581,6 @@ button, a {
             justify-content: center;
             font-weight: bold;
             color: white;
-        }
-        
-/* Mobile Menu Button - NEW MODERN DESIGN */
-        #menuBtn {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 101;
-            background: rgba(139, 92, 246, 0.3);
-            border-radius: 8px;
-            border: 1px solid rgba(139, 92, 246, 0.5);
-            transition: all 0.3s ease;
-            position: relative;
-            -webkit-tap-highlight-color: rgba(0,0,0,0);
-            -webkit-user-select: none;
-            user-select: none;
-        }
-        
-        #menuBtn span {
-            width: 20px;
-            height: 2px;
-            background: white;
-            margin: 2px 0;
-            transition: all 0.3s ease;
-            transform-origin: center;
-            border-radius: 1px;
-        }
-        
-        #menuBtn.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-        
-        #menuBtn.active span:nth-child(2) {
-            opacity: 0;
-        }
-        
-        #menuBtn.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -5px);
-        }
-        
-        #menuBtn:hover {
-            background: rgba(139, 92, 246, 0.4);
-            border-color: rgba(139, 92, 246, 0.7);
-        }
-        
-        #menuBtn:active {
-            background: rgba(139, 92, 246, 0.5);
-            transform: scale(0.95);
-        }
-        
-        /* Mobile Navigation */
-        .mobile-nav {
-            position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            width: 85vw;
-            max-width: 360px;
-            background: rgba(15, 23, 42, 0.98);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            z-index: 100;
-            transform: translateX(100%);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border-left: 1px solid rgba(255, 255, 255, 0.2);
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
-            pointer-events: auto;
-        }
-        
-        .mobile-nav.open {
-            transform: translateX(0);
-        }
-        
-        /* Mobile menu header sticky */
-        .mobile-nav-header {
-            position: sticky;
-            top: 0;
-            background: rgba(24, 24, 27, 0.98);
-            backdrop-filter: blur(20px);
-            z-index: 10;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        /* Mobile Menu Overlay */
-        .mobile-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(2px);
-            z-index: 99;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-            pointer-events: none;
-        }
-        
-        .mobile-overlay.open {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
         }
         
         /* Status Indicators */
@@ -1046,46 +994,25 @@ button, a {
             
             .mobile-nav {
                 width: 100%;
+                max-width: 280px;
             }
             
             .tech-stack-grid {
                 grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
             }
             
-            #menuBtn {
+            .menu-btn {
                 display: flex !important;
             }
+            
+            .desktop-nav {
+                display: none;
+            }
+            
+            .main-nav .hidden.md\:flex {
+                display: none;
+            }
         }
-
-    /* Desktop / Laptop – hide hamburger */
-    #menuBtn {
-        display: none;
-    }
-
-    /* Mobile / Tablet – show hamburger */
-    @media (max-width: 768px) {
-        #menuBtn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .desktop-nav {
-            display: none;
-        }
-
-        .mobile-nav {
-            display: block;
-        }
-    }
-
-    /* Safety – desktop වල mobile nav completely disable */
-    @media (min-width: 769px) {
-        .mobile-nav,
-        .mobile-overlay {
-            display: none !important;
-        }
-    }
 
         .stars {
             margin-top: 12px;
@@ -1288,26 +1215,6 @@ button, a {
 .delete-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
-}
-
-/* Mobile Menu Close Button */
-.close-menu-btn {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(139, 92, 246, 0.2);
-    border: 1px solid rgba(139, 92, 246, 0.4);
-    border-radius: 8px;
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.close-menu-btn:hover {
-    background: rgba(139, 92, 246, 0.4);
-    transform: scale(1.1);
 }
 
 /* Floating Button */
@@ -1514,6 +1421,11 @@ button, a {
                 </div>
             </a>
 
+            <!-- Hamburger Menu Button (Mobile) -->
+            <button id="menuBtn" class="menu-btn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+
             <!-- Desktop Navigation Links -->
             <ul class="hidden md:flex gap-8">
                 <li><a href="#home" class="nav-link">Home</a></li>
@@ -1570,98 +1482,81 @@ button, a {
                     </div>
                 </div>
             </div>
-
-            <!-- Mobile Menu Button (NEW Modern Hamburger) -->
-            <button id="menuBtn" class="md:hidden">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-
-        <!-- Mobile Navigation Menu -->
-        <div class="mobile-nav" id="mobileNav">
-            <div class="mobile-nav-header p-4 border-b border-zinc-700">
-                <div class="flex justify-between items-center">
-                    <!-- Mobile Logo -->
-                    <a href="#home" class="brand-logo">
-                        <div class="logo-icon">
-                            MD
-                        </div>
-                        <div class="logo-text">
-                            Mandil D
-                        </div>
-                    </a>
-                    <button class="close-menu-btn" id="closeMobileMenuBtn">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-            </div>
-
-            <div class="overflow-y-auto h-full">
-                <!-- Mobile Navigation Links -->
-                <a href="#home" class="mobile-link">
-                    <i class="fas fa-home mr-3"></i>Home
-                </a>
-                <a href="#about" class="mobile-link">
-                    <i class="fas fa-user mr-3"></i>About
-                </a>
-                <a href="#services" class="mobile-link">
-                    <i class="fas fa-cogs mr-3"></i>Services
-                </a>
-                <a href="#tech-stack" class="mobile-link">
-                    <i class="fas fa-code mr-3"></i>Tech Stack
-                </a>
-                <a href="#projects" class="mobile-link">
-                    <i class="fas fa-briefcase mr-3"></i>Projects
-                </a>
-                <a href="#testimonials" class="mobile-link">
-                    <i class="fas fa-comments mr-3"></i>Clients
-                </a>
-                <a href="#dashboard" class="mobile-link" onclick="openDashboard()">
-                    <i class="fas fa-tachometer-alt mr-3"></i>Dashboard
-                </a>
-                <a href="#contact" class="mobile-link">
-                    <i class="fas fa-envelope mr-3"></i>Contact
-                </a>
-
-                <!-- Mobile Account Section -->
-                <div class="p-4 border-t border-zinc-700 mt-auto">
-                    <!-- Logged OUT -->
-                    <div id="mobileAuth">
-                        <button class="w-full mb-2 login-btn" onclick="openAuthModal('login')">
-                            Login
-                        </button>
-                        <button class="w-full register-btn" onclick="openAuthModal('register')">
-                            Register
-                        </button>
-                    </div>
-
-                    <!-- Logged IN -->
-                    <div id="mobileUser" class="hidden">
-                        <div class="flex items-center gap-3 mb-4 p-3 bg-zinc-800/50 rounded-lg">
-                            <div id="mobileUserAvatar" class="user-avatar">
-                                M
-                            </div>
-                            <div>
-                                <p id="mobileUserName" class="font-semibold"></p>
-                                <p id="mobileUserEmail" class="text-xs text-zinc-400"></p>
-                            </div>
-                        </div>
-                        <a href="#home" class="w-full mb-2 px-4 py-2 rounded-lg bg-zinc-800 text-center block" onclick="goToHome()">
-                            Home
-                        </a>
-                        <button class="w-full dashboard-btn delete-btn" onclick="logout()">
-                            Logout
-                        </button>
-                    </div>
-                </div>
-            </div>
         </div>
     </nav>
 
-    <!-- Mobile Menu Overlay -->
-    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <!-- Mobile Navigation Panel -->
+    <div id="mobileNav" class="mobile-nav">
+        <div class="mobile-nav-header">
+            <div class="brand-logo">
+                <div class="logo-icon">MD</div>
+                <div class="logo-text">Mandil D</div>
+            </div>
+            <button onclick="closeMobileMenu()" class="close-menu-btn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="overflow-y-auto h-full">
+            <!-- Mobile Navigation Links -->
+            <a href="#home" class="mobile-link" onclick="closeMobileMenu()">
+                <i class="fas fa-home mr-3"></i>Home
+            </a>
+            <a href="#about" class="mobile-link" onclick="closeMobileMenu()">
+                <i class="fas fa-user mr-3"></i>About
+            </a>
+            <a href="#services" class="mobile-link" onclick="closeMobileMenu()">
+                <i class="fas fa-cogs mr-3"></i>Services
+            </a>
+            <a href="#tech-stack" class="mobile-link" onclick="closeMobileMenu()">
+                <i class="fas fa-code mr-3"></i>Tech Stack
+            </a>
+            <a href="#projects" class="mobile-link" onclick="closeMobileMenu()">
+                <i class="fas fa-briefcase mr-3"></i>Projects
+            </a>
+            <a href="#testimonials" class="mobile-link" onclick="closeMobileMenu()">
+                <i class="fas fa-comments mr-3"></i>Clients
+            </a>
+            <a href="#dashboard" class="mobile-link" onclick="closeMobileMenu(); openDashboard();">
+                <i class="fas fa-tachometer-alt mr-3"></i>Dashboard
+            </a>
+            <a href="#contact" class="mobile-link" onclick="closeMobileMenu()">
+                <i class="fas fa-envelope mr-3"></i>Contact
+            </a>
+
+            <!-- Mobile Account Section -->
+            <div class="p-4 border-t border-zinc-700 mt-auto">
+                <!-- Logged OUT -->
+                <div id="mobileAuth">
+                    <button class="w-full mb-2 login-btn" onclick="closeMobileMenu(); openAuthModal('login');">
+                        Login
+                    </button>
+                    <button class="w-full register-btn" onclick="closeMobileMenu(); openAuthModal('register');">
+                        Register
+                    </button>
+                </div>
+
+                <!-- Logged IN -->
+                <div id="mobileUser" class="hidden">
+                    <div class="flex items-center gap-3 mb-4 p-3 bg-zinc-800/50 rounded-lg">
+                        <div id="mobileUserAvatar" class="user-avatar">
+                            M
+                        </div>
+                        <div>
+                            <p id="mobileUserName" class="font-semibold"></p>
+                            <p id="mobileUserEmail" class="text-xs text-zinc-400"></p>
+                        </div>
+                    </div>
+                    <a href="#home" class="w-full mb-2 px-4 py-2 rounded-lg bg-zinc-800 text-center block" onclick="closeMobileMenu(); goToHome();">
+                        Home
+                    </a>
+                    <button class="w-full dashboard-btn delete-btn" onclick="closeMobileMenu(); logout();">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Floating Contact Button -->
     <button onclick="scrollToContact()" class="floating-btn">
@@ -2836,6 +2731,26 @@ button, a {
         }
 
         // ====================
+        // Mobile Menu Functions
+        // ====================
+        function toggleMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.classList.toggle('open');
+            document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : 'auto';
+        }
+
+        function closeMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.classList.remove('open');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // ====================
         // Authentication State Listener
         // ====================
         auth.onAuthStateChanged((user) => {
@@ -2856,59 +2771,6 @@ button, a {
                 updateUIForGuest();
                 localStorage.removeItem('user');
             }
-        });
-
-        // ====================
-        // Modern Mobile Menu Toggle
-        // ====================
-        const menuBtn = document.getElementById('menuBtn');
-        const mobileNav = document.getElementById('mobileNav');
-        const overlay = document.getElementById('mobileOverlay');
-        const closeBtn = document.getElementById('closeMobileMenuBtn');
-
-        function toggleMobileMenu() {
-            const isOpen = mobileNav.classList.contains('open');
-            
-            if (!isOpen) {
-                // Open menu
-                mobileNav.classList.add('open');
-                overlay.classList.add('open');
-                menuBtn.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            } else {
-                // Close menu
-                closeMobileMenu();
-            }
-        }
-
-        function closeMobileMenu() {
-            mobileNav.classList.remove('open');
-            overlay.classList.remove('open');
-            menuBtn.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        // Event Listeners
-        menuBtn.addEventListener('click', toggleMobileMenu);
-        closeBtn.addEventListener('click', closeMobileMenu);
-        overlay.addEventListener('click', closeMobileMenu);
-
-        // Close menu when clicking on a mobile link
-        document.querySelectorAll('.mobile-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                // Prevent default only if it's a hash link
-                const href = link.getAttribute('href');
-                if (href && href.startsWith('#')) {
-                    e.preventDefault();
-                    const target = document.querySelector(href);
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'smooth' });
-                    }
-                }
-                
-                // Close menu after short delay for smooth animation
-                setTimeout(closeMobileMenu, 300);
-            });
         });
 
         // Close menu when clicking outside
